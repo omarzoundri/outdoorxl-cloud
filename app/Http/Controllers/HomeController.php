@@ -2,11 +2,13 @@
 
 class HomeController extends Controller
 {
-    public function index(){	
-    	return 'hello world';
-	}
-	
 	public function login(){	
     	return view('login');
+	}
+	public function add(){	
+    	return view('add');
+	}
+	public function index(){	
+    	return view('index');
 	}
 }
