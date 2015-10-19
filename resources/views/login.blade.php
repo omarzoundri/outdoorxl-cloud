@@ -30,7 +30,6 @@
         <a href="#">Outdoor<b>XL</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Ik weet ik niet</p>
         <form action="#" method="post">
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email">
@@ -42,7 +41,7 @@
           </div>
           <div class="row">
             <div class="col-xs-8">
-              <a href="#">Ik forget mi passwoord</a><br>
+              <a href="#">Wachtwoord vergeten?</a><br>
             </div><!-- /.col -->
             <div class="col-xs-4">
               <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
