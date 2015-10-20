@@ -1,5 +1,9 @@
 .box-footer
 .btn{
-  padding: 15px 15px;
+  padding: 11px 20px;
   margin-left: 223px;
+}
+body
+.login-box{
+  margin: 12% auto;
 }

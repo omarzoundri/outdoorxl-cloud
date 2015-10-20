@@ -5,10 +5,6 @@
 @section('page-description', 'Hier kun je medewerkers toevoegen.')
 
 @section('content')
-	<!-- add page specific css -->
-    <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
-	<!-- add page specific css -->
-
 	<!-- Horizontal Form -->
 	<div class="box box-info">
 	<div class="box-header with-border">
