@@ -11,5 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@login');
-Route::get('add', 'HomeController@add');
+Route::get('/', 'Auth\AuthController@getLogin');
+Route::get('add', 'HomeController@getAdd');
+
+
+
+
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController',
+]);

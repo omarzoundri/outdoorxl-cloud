@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
 class AuthController extends Controller
 {
     /*
@@ -20,19 +17,41 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
+
+
+    public function getLogin(){
+        return view('login');
+    }
+    public function postLogin(Request $request){
+
+        $this->validate($request, [
+                'email' => 'required', 'password' => 'required',
+            ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if ($this->auth->attempt($credentials, $request->has('remember'))) 
+        {
+            return redirect()->intended($this->redirectPath());
+        }
+
+        return redirect('login')
+                    ->withInput($request->only('email'))
+                    ->withErrors([
+                            'emal' => 'These credentials do not match our records.',
+                        ]);
+
+    }
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,7 +69,6 @@ class AuthController extends Controller
             'experienceid' => 'required|max:11'
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *

@@ -41,6 +41,37 @@
 	        <input type="password" class="form-control" id="password" placeholder="Wachtwoord">
 	      </div>
 	    </div>
+	   	<div class="form-group">
+	      <label for="rank" class="col-sm-2 control-label">Soort Medewerker</label>
+	      	<div class="col-sm-10">
+	          <select class="form-control" id="rank">
+	            <option id="1">Medewerker</option>
+	            <option id="2">Stagiare</option>
+	            <option id="3">Beheerder</option>
+	          </select>
+	      </div>
+	    </div>
+	   	<div class="form-group">
+	      <label for="division" class="col-sm-2 control-label">Afdeling</label>
+	      	<div class="col-sm-10">
+	          <select class="form-control" id="division">
+				<option id="1">Kassa</option>
+				<option id="2">Schoenen</option>
+				<option id="3">Tenten</option>
+				<option id="4">Wintersport</option>
+	          </select>
+	      </div>
+	    </div>
+	   	<div class="form-group">
+	      <label for="experience" class="col-sm-2 control-label">Afdeling</label>
+	      	<div class="col-sm-10">
+	          <select class="form-control" id="experience">
+				<option id="1">Junior</option>
+				<option id="2">Ervaren</option>
+				<option id="3">Heel Ervaren</option>
+	          </select>
+	      </div>
+	    </div>
 	  </div><!-- /.box-body -->
 	  <div class="box-footer">
 	    <button type="submit" class="btn btn-info pull-left">Toevoegen</button>
