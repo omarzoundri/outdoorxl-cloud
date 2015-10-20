@@ -7,11 +7,11 @@
 <!-- AdminLTE App -->
 <script src="{{ asset ("/docs/dist/js/app.min.js") }}" type="text/javascript"></script>
 
-<footer class="main-footer">
-    <!-- To the right -->
+<!-- <footer class="main-footer">
+
     <div class="pull-right hidden-xs">
         Anything you want
     </div>
-    <!-- Default to the left -->
+
     <strong>Copyright © 2015 <a href="#">Company</a>.</strong> All rights reserved.
-</footer>
+</footer> -->

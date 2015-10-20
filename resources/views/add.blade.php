@@ -2,15 +2,17 @@
 
 @section('title', 'Medewerker Toevoegen - ')
 
-@section('page-title', 'Medewerker toevoegen')
-
 @section('page-description', 'Hier kun je medewerkers toevoegen.')
 
 @section('content')
+	<!-- add page specific css -->
+    <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
+	<!-- add page specific css -->
+
 	<!-- Horizontal Form -->
 	<div class="box box-info">
 	<div class="box-header with-border">
-	  <h3 class="box-title">Medewerker Toevoegen Form</h3>
+	  <h3 class="box-title">Medewerker Toevoegen</h3>
 	</div><!-- /.box-header -->
 	<!-- form start -->
 	<form class="form-horizontal">
@@ -41,8 +43,7 @@
 	    </div>
 	  </div><!-- /.box-body -->
 	  <div class="box-footer">
-	    <button type="submit" class="btn btn-default">Cancel</button>
-	    <button type="submit" class="btn btn-info pull-right">Sign in</button>
+	    <button type="submit" class="btn btn-info pull-left">Toevoegen</button>
 	  </div><!-- /.box-footer -->
 	</form>
 	</div><!-- /.box -->
