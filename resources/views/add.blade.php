@@ -11,63 +11,59 @@
 	  <h3 class="box-title">Medewerker Toevoegen</h3>
 	</div><!-- /.box-header -->
 	<!-- form start -->
-	<form class="form-horizontal">
+	<form method="POST" action="/employees" class="form-horizontal">
 	  <div class="box-body">
+	  		@if ($errors->any())
+			<div class="alert alert-danger">
+				@foreach ($errors->all() as $error)
+					<p>{{ $error }}</p>
+				@endforeach
+			@endif
+			</div>
 	  	<div class="form-group">
-	      <label for="firstname" class="col-sm-2 control-label">Voornaam</label>
+	      <label for="firstname" class="col-sm-2 control-label">Naam</label>
 	      <div class="col-sm-10">
-	        <input type="text" class="form-control" id="firstname" placeholder="Voornaam">
-	      </div>
-	    </div>
-	   	<div class="form-group">
-	      <label for="lastname" class="col-sm-2 control-label">Voornaam</label>
-	      <div class="col-sm-10">
-	        <input type="text" class="form-control" id="lastname" placeholder="Achternaam">
+	        <input type="text" class="form-control" name="name" placeholder="Naam">
 	      </div>
 	    </div>
 	    <div class="form-group">
 	      <label for="email" class="col-sm-2 control-label">Email</label>
 	      <div class="col-sm-10">
-	        <input type="email" class="form-control" id="email" placeholder="Email">
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="password" class="col-sm-2 control-label">Wachtwoord</label>
-	      <div class="col-sm-10">
-	        <input type="password" class="form-control" id="password" placeholder="Wachtwoord">
+	        <input type="email" class="form-control" name="email" placeholder="Email">
 	      </div>
 	    </div>
 	   	<div class="form-group">
 	      <label for="rank" class="col-sm-2 control-label">Soort Medewerker</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" id="rank">
-	            <option id="1">Medewerker</option>
-	            <option id="2">Stagiare</option>
-	            <option id="3">Beheerder</option>
+	          <select class="form-control" name="rankid">
+	            <option value="0">Medewerker</option>
+	            <option value="1">Stagiare</option>
+	            <option value="2">Beheerder</option>
 	          </select>
 	      </div>
 	    </div>
 	   	<div class="form-group">
 	      <label for="division" class="col-sm-2 control-label">Afdeling</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" id="division">
-				<option id="1">Kassa</option>
-				<option id="2">Schoenen</option>
-				<option id="3">Tenten</option>
-				<option id="4">Wintersport</option>
+	          <select class="form-control" name="divisionid">
+				<option value="0">Kassa</option>
+				<option value="1">Schoenen</option>
+				<option value="2">Tenten</option>
+				<option value="3">Wintersport</option>
 	          </select>
 	      </div>
 	    </div>
 	   	<div class="form-group">
 	      <label for="experience" class="col-sm-2 control-label">Afdeling</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" id="experience">
-				<option id="1">Junior</option>
-				<option id="2">Ervaren</option>
-				<option id="3">Heel Ervaren</option>
+	          <select class="form-control" name="experienceid">
+				<option value="0">Junior</option>
+				<option value="1">Ervaren</option>
+				<option value="2">Heel Ervaren</option>
 	          </select>
 	      </div>
 	    </div>
+	    {!! csrf_field() !!}
 	  </div><!-- /.box-body -->
 	  <div class="box-footer">
 	    <button type="submit" class="btn btn-info pull-left">Toevoegen</button>

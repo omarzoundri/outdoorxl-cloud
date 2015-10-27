@@ -10,7 +10,7 @@
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme styles -->
     <link href="{{ asset("/docs/dist/css/AdminLTE.css")}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("/docs/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset("/docs/dist/css/skins/skin-green.min.css")}}" rel="stylesheet" type="text/css" />
     <!-- Custom CSS3 -->
     <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
 

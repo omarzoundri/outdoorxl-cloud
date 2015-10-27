@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'Auth\AuthController@getLogin');
-Route::get('add', 'HomeController@getAdd');
+Route::get('add', 'HomeController@add');
+Route::post('add', 'HomeController@addemployee');
+Route::get('employees', 'HomeController@employees');
 
 
 
