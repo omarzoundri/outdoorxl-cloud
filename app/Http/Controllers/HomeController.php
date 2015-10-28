@@ -22,9 +22,8 @@ class HomeController extends Controller
 
 		$users = User::all();
 
-		return $users;
 
-		return view('employees', $users);
+		return view('employees', ['users' => $users]);
 	}
 	public function addemployee(AddEmployee $request){
 
@@ -38,5 +37,11 @@ class HomeController extends Controller
 
 		return view('add');
 
+	}
+	public function editemployee($id){
+
+		$user = User::findOrFail($id);
+
+		return view('editemployee', compact('user'));
 	}
 }
