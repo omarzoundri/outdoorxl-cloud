@@ -1,8 +1,15 @@
 @extends('master')
 
-@section('title', 'Medewerker Toevoegen - ')
+@section('title', 'Medewerker Toevoegen')
 
 @section('page-description', 'Hier kun je medewerkers toevoegen.')
+
+@section('breadcrumb')
+    <ol class="breadcrumb">
+        <li></i>Beheer</li>
+        <li class="active">Medewerker Toevoegen</li>
+    </ol>
+@stop
 
 @section('content')
 	<!-- Horizontal Form -->

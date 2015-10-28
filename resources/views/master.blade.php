@@ -23,10 +23,7 @@
                 <small>@yield('page-description')</small>
             </h1>
             <!-- You can dynamically generate breadcrumbs here -->
-            <ol class="breadcrumb">
-                <li></i> Paneel</li>
-                <li class="active">@yield('page-title')</li>
-            </ol>
+            @yield('breadcrumb')
         </section>
 
         <!-- Main content -->

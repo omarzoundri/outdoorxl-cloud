@@ -2,6 +2,13 @@
 
 @section('title', 'Medewerkers')
 
+@section('breadcrumb')
+    <ol class="breadcrumb">
+        <li></i>Beheer</li>
+        <li class="active">Medewerkers</li>
+    </ol>
+@stop
+
 @section('content')
 <div class="box">
   <div class="box-header with-border">

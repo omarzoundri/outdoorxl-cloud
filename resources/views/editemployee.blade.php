@@ -2,6 +2,13 @@
 
 @section('title', 'Medewerker Wijzigen')
 
+@section('breadcrumb')
+    <ol class="breadcrumb">
+        <li></i>Beheer</li>
+        <li class="active">Medewerker Wijzigen</li>
+    </ol>
+@stop
+
 @section('content')
 	<!-- Horizontal Form -->
 	<div class="box box-info">
