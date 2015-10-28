@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests;
 use App\Http\Requests\AddEmployee;
+use App\Http\Requests\EditEmployee;
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request;
 
@@ -38,10 +39,18 @@ class HomeController extends Controller
 		return redirect('employees');
 
 	}
-	public function EditEmployee($id){
+	public function employee($id){
 
 		$user = User::findOrFail($id);
 
-		return view('editemployee', compact('user'));
+		return view('editemployee', ['user' => $user]);
+	}
+	public function EditEmployee($id, EditEmployee $request){
+
+		$user = User::findOrFail($id);
+
+		$user->update($request->all());
+
+		return redirect('employees');
 	}
 }

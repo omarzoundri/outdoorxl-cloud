@@ -10,7 +10,7 @@
                 <img src="{{ asset("/docs/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p>Omar "Suge Knight" Chapo</p>
+                <p>Naam</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>

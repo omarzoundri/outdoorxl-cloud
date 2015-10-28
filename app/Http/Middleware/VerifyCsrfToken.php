@@ -15,6 +15,7 @@ class VerifyCsrfToken extends BaseVerifier
 
     	'add',
     	'employees',
+    	'edit',
         //
     ];
 }

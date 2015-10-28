@@ -14,7 +14,7 @@
   </div><!-- /.box-header -->
   @foreach ($users as $user)
   <div class="box-body">
-    <a href="employees/{{ $user['id'] }}">{{ $user['name'] }}</a>
+    <a href="employees/{{ $user['id'] }}/edit">{{ $user['name'] }}</a>
   </div><!-- /.box-body -->
   @endforeach
 
