@@ -25,7 +25,7 @@ class HomeController extends Controller
 
 		return view('employees', ['users' => $users]);
 	}
-	public function addemployee(AddEmployee $request){
+	public function AddEmployee(AddEmployee $request){
 
 		$input = $request->all();
 
@@ -35,10 +35,10 @@ class HomeController extends Controller
 
 		User::create($input);
 
-		return view('add');
+		return redirect('employees');
 
 	}
-	public function editemployee($id){
+	public function EditEmployee($id){
 
 		$user = User::findOrFail($id);
 

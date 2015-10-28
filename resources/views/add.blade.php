@@ -11,7 +11,7 @@
 	  <h3 class="box-title">Medewerker Toevoegen</h3>
 	</div><!-- /.box-header -->
 	<!-- form start -->
-	<form method="POST" action="/employees" class="form-horizontal">
+	<form method="POST" action="" class="form-horizontal">
 	  <div class="box-body">
 	  		@if ($errors->any())
 			<div class="alert alert-danger">
