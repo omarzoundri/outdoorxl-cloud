@@ -12,11 +12,14 @@
 */
 
 Route::get('/', 'Auth\AuthController@getLogin');
-Route::get('add', 'HomeController@add');
-Route::post('add', 'HomeController@AddEmployee');
-Route::get('employees', 'HomeController@employees');
-Route::get('employees/{id}/edit', 'HomeController@employee');
-Route::post('employees/{id}/edit', 'HomeController@EditEmployee');
+Route::post('/', 'Auth\AuthController@postLogin');
+Route::get('/home', 'HomeController@dashboard' );
+Route::get('add',['middleware' => 'admin', 'uses' => 'HomeController@add']);
+Route::post('add',['middleware' => 'admin', 'uses' => 'HomeController@AddEmployee']);
+Route::get('employees', ['middleware' => 'admin', 'uses' => 'HomeController@employees']);
+Route::get('employees/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@employee']);
+Route::post('employees/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeController@EditEmployee']);
+Route::get('addafdeling', 'HomeController@AddAfdeling');
 
 
 

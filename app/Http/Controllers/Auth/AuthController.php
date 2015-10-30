@@ -1,10 +1,13 @@
 <?php
 namespace App\Http\Controllers\Auth;
+use Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+
 class AuthController extends Controller
 {
     /*
@@ -25,10 +28,14 @@ class AuthController extends Controller
      */
 
 
-    public function getLogin(){
+    public function getLogin()
+    {
+
         return view('login');
+
     }
-    public function postLogin(Request $request){
+    public function postLogin(Request $request)
+    {
 
         $this->validate($request, [
                 'email' => 'required', 'password' => 'required',
@@ -36,12 +43,12 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if ($this->auth->attempt($credentials, $request->has('remember'))) 
+        if (Auth::attempt($credentials, $request->has('remember'))) 
         {
-            return redirect()->intended($this->redirectPath());
+            return redirect('employees');
         }
 
-        return redirect('login')
+        return redirect('/')
                     ->withInput($request->only('email'))
                     ->withErrors([
                             'emal' => 'These credentials do not match our records.',

@@ -30,13 +30,13 @@
         <a href="#">Outdoor<b>XL</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <form action="#" method="post">
+        <form action="/" method="post">
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" class="form-control" name="email" placeholder="Email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" name="password" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
