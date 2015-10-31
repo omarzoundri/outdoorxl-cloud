@@ -23,5 +23,7 @@ class Division extends Model
    *
    * @var array
    */
+  protected $primaryKey = 'division_id';
+  
   protected $fillable = ['division'];
 }

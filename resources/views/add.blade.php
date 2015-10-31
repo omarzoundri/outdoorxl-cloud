@@ -42,7 +42,7 @@
 	   	<div class="form-group">
 	      <label for="rank" class="col-sm-2 control-label">Soort Medewerker</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" name="rankid">
+	          <select class="form-control" name="rank_id">
 	            <option value="0">Medewerker</option>
 	            <option value="1">Stagiare</option>
 	            <option value="2">Beheerder</option>
@@ -52,7 +52,7 @@
 	   	<div class="form-group">
 	      <label for="division" class="col-sm-2 control-label">Afdeling</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" name="divisionid">
+	          <select class="form-control" name="division_id">
 				<option value="0">Kassa</option>
 				<option value="1">Schoenen</option>
 				<option value="2">Tenten</option>
@@ -63,7 +63,7 @@
 	   	<div class="form-group">
 	      <label for="experience" class="col-sm-2 control-label">Ervaring</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" name="experienceid">
+	          <select class="form-control" name="experience_id">
 				<option value="0">Junior</option>
 				<option value="1">Ervaren</option>
 				<option value="2">Heel Ervaren</option>

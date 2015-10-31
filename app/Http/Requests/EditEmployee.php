@@ -26,9 +26,9 @@ class EditEmployee extends Request
         return [
             'name' => 'required|min:3|max:25',
             'email' => 'required|email',
-            'rankid' => 'required|integer',
-            'divisionid' => 'required|integer',
-            'experienceid' => 'required|integer',
+            'rank_id' => 'required|integer',
+            'division_id' => 'required|integer',
+            'experience_id' => 'required|integer',
         ];
     }
 }

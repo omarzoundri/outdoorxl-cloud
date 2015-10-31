@@ -10,7 +10,7 @@
                 <img src="{{ asset("/docs/dist/img/gaben.jpg") }}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p>Gaben</p>
+                <p>{!! Auth::user()->name !!}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -29,10 +29,18 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
+            <li class="header">Dashboard</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li><a href="#"><span>Home</span></a></li>
+            <li><a href="#"><span>Nieuws</span></a></li>
+            @if (Auth::user()->rank_id == 2)
             <li class="header">Beheer</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="/employees"><span>Medewerkers</span></a></li>
-            <li><a href="/add"><span>Medewerker Toevoegen</span></a></li>
+            <li><a href="/medewerkers"><span>Medewerkers</span></a></li>
+            <li><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
+            <li><a href="/afdelingen"><span>Afdelingen</span></a></li>
+            <li><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
+            @endif
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

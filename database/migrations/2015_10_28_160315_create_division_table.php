@@ -13,8 +13,9 @@ class CreateDivisionTable extends Migration
     public function up()
     {
         Schema::create('divisions', function (Blueprint $table) {
-            $table->integer('divisionid');
+            $table->increments('division_id');
             $table->string('division');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,6 @@ class CreateDivisionTable extends Migration
      */
     public function down()
     {
-        Schema::drop('division');
+        Schema::dropIfExists('division');
     }
 }

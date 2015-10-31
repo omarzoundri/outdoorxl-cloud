@@ -26,9 +26,9 @@ class AddEmployee extends Request
         return [
             'name' => 'required|unique:users|min:3|max:25',
             'email' => 'required|unique:users|email',
-            'rankid' => 'required|integer',
-            'divisionid' => 'required|integer',
-            'experienceid' => 'required|integer',
+            'rank_id' => 'required|integer',
+            'division_id' => 'required|integer',
+            'experience_id' => 'required|integer',
         ];
     }
 }

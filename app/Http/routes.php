@@ -13,13 +13,22 @@
 
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
-Route::get('/home', 'HomeController@dashboard' );
-Route::get('add',['middleware' => 'admin', 'uses' => 'HomeController@add']);
-Route::post('add',['middleware' => 'admin', 'uses' => 'HomeController@AddEmployee']);
-Route::get('employees', ['middleware' => 'admin', 'uses' => 'HomeController@employees']);
-Route::get('employees/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@employee']);
-Route::post('employees/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeController@EditEmployee']);
-Route::get('addafdeling', 'HomeController@AddAfdeling');
+Route::get('home', 'HomeController@dashboard' );
+Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
+Route::post('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@postAddEmployee']);
+Route::get('medewerkers', ['middleware' => 'admin', 'uses' => 'HomeController@employees']);
+Route::get('medewerker/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@getEditEmployee']);
+Route::post('medewerker/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeController@postEditEmployee']);
+Route::get('medewerker/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteEmployee']);
+Route::post('medewerker/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteEmployee']);
+Route::get('afdelingen', ['middleware' => 'admin', 'uses' => 'HomeController@divisions']);
+Route::get('afdeling-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddDivision']);
+Route::post('afdeling-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@postAddDivision']);
+Route::get('afdeling/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@getEditDivision']);
+Route::post('afdeling/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeController@postEditDivision']);
+Route::get('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteDivision']);
+Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteDivision']);
+Route::get('test', 'HomeController@test');
 
 
 

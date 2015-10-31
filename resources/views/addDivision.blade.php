@@ -1,13 +1,13 @@
 @extends('master')
 
-@section('title', 'Medewerker Toevoegen')
+@section('title', 'Afdeling Toevoegen')
 
-@section('page-description', 'Hier kun je medewerkers toevoegen.')
+@section('page-description', 'Hier kun je afdelingen toevoegen.')
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li></i>Beheer</li>
-        <li class="active">Medewerker Toevoegen</li>
+        <li class="active">Afdeling Toevoegen</li>
     </ol>
 @stop
 
@@ -15,7 +15,7 @@
 	<!-- Horizontal Form -->
 	<div class="box box-info">
 	<div class="box-header with-border">
-	  <h3 class="box-title">Medewerker Toevoegen</h3>
+	  <h3 class="box-title">Afdeling Toevoegen</h3>
 	</div><!-- /.box-header -->
 	<!-- form start -->
 	<form method="POST" action="" class="form-horizontal">
@@ -31,13 +31,8 @@
 	   	<div class="form-group">
 	      <label for="division" class="col-sm-2 control-label">Afdeling</label>
 	      	<div class="col-sm-10">
-	          <select class="form-control" name="divisionid">
-				<option value="0">Kassa</option>
-				<option value="1">Schoenen</option>
-				<option value="2">Tenten</option>
-				<option value="3">Wintersport</option>
-	          </select>
-	      </div>
+	        	<input type="text" class="form-control" name="division" placeholder="Afdeling">
+	      	</div>
 	    </div>
 
 	    <div class="box-footer">
