@@ -17,7 +17,7 @@ class RedirectIfNotAnAdmin
     {
         if ( ! $request->user()->isAnAdmin()) 
         {
-            return redirect('home');
+            return redirect('/nieuws');
         }
 
         return $next($request);

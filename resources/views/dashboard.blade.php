@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li></i>Dashboard</li>
-        <li class="active">Home</li>
+        <li class="active">Nieuws</li>
     </ol>
 @stop
 

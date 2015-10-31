@@ -13,7 +13,7 @@
 
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
-Route::get('home', 'HomeController@dashboard' );
+Route::get('nieuws', 'HomeController@dashboard' );
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
 Route::post('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@postAddEmployee']);
 Route::get('medewerkers', ['middleware' => 'admin', 'uses' => 'HomeController@employees']);

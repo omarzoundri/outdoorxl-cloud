@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->has('remember'))) 
         {
-            return redirect('home');
+            return redirect('nieuws');
         }
 
         return redirect('/')

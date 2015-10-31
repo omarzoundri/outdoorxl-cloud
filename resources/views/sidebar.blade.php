@@ -31,7 +31,6 @@
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><span>Home</span></a></li>
             <li><a href="#"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li class="header">Beheer</li>
