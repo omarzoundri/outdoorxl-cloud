@@ -13,16 +13,11 @@ use Validator, Input, Redirect, Hash, Request, Auth, Mail;
 
 class HomeController extends Controller
 {
-	public function test()
-	{
-		$pw = 'omar';
-		return bcrypt($pw); 
-	}
-
 	public function __construct()
 	{
 		$this->middleware('auth');
 	}
+
 	public function dashboard()
 	{	
     	return view('dashboard');
