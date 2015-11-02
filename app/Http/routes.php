@@ -28,7 +28,7 @@ Route::get('afdeling/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeContro
 Route::post('afdeling/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeController@postEditDivision']);
 Route::get('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteDivision']);
 Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteDivision']);
-Route::get('test', 'HomeController@test');
+Route::get('test', 'TestController@test');
 
 
 

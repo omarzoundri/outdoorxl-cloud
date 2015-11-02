@@ -23,12 +23,6 @@ class HomeController extends Controller
 	{
 		$this->middleware('auth');
 	}
-
-	public function login()
-	{	
-    	return view('login');
-	}
-
 	public function dashboard()
 	{	
     	return view('dashboard');
