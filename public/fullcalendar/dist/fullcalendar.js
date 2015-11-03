@@ -3657,8 +3657,7 @@ var Grid = fc.Grid = RowRenderer.extend({
 		classes.unshift('fc-day', view.widgetContentClass);
 
 		return '<td class="' + classes.join(' ') + '"' +
-			' data-date="' + date.format('YYYY-MM-DD') + '"' + // if date has a time, won't format it
-			'></td>';
+			' data-date="' + date.format('YYYY-MM-DD') + '"' + '></td>';
 	},
 
 
@@ -10462,11 +10461,11 @@ var BasicView = View.extend({
 				'</thead>' +
 				'<tbody class="fc-body">' +
 					'<tr>' +
-						'<td class="' + this.widgetContentClass + '">' +
-							'<div class="fc-day-grid-container">' +
-								'<div class="fc-day-grid"/>' +
-							'</div>' +
-						'</td>' +
+							'<td class="' + this.widgetContentClass + '">' +
+								'<div class="fc-day-grid-container">' +
+									'<div class="fc-day-grid"/>' +
+								'</div>' +
+							'</td>' +
 					'</tr>' +
 				'</tbody>' +
 			'</table>';
