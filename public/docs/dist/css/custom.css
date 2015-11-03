@@ -10,3 +10,12 @@ body
 .form-control{
 	width: 300px;
 }
+.skin-green .main-header .navbar{
+	background: #a3c338;
+}
+.skin-green .main-header .logo{
+	background: #8BB143;
+}
+.skin-green .main-header .logo:hover{
+	background: #a3c338;
+}

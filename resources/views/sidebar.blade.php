@@ -40,6 +40,7 @@
             <li><a href="/afdelingen"><span>Afdelingen</span></a></li>
             <li><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
             @endif
+            <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

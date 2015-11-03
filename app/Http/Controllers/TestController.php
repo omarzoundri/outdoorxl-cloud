@@ -10,7 +10,7 @@ class TestController extends Controller
 {
     public function test()
     {
-        $pw = 'omar';
+        $pw = 'test';
         return bcrypt($pw); 
     }
 }

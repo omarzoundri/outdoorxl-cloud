@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
 
-    protected $dates = ['start', 'end'];
+    protected $dates = ['title','start', 'end'];
 
     /**
      * Get the event's id number
@@ -15,7 +15,7 @@ class Event extends Model implements \MaddHatter\LaravelFullcalendar\Event
      * @return int
      */
     public function getId() {
-        return $this->id;
+        return $this->event_id;
     }
 
     /**
