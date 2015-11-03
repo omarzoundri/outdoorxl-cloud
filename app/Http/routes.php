@@ -14,6 +14,7 @@
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
 Route::get('nieuws', 'HomeController@dashboard' );
+Route::get('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddNieuws']); // good kid m.A.A.d city
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
 Route::post('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@postAddEmployee']);
 Route::get('medewerkers', ['middleware' => 'admin', 'uses' => 'HomeController@employees']);
