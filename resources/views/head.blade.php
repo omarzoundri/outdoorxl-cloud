@@ -14,9 +14,10 @@
     <!-- Custom CSS3 -->
     <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/moment/min/moment.min.js"></script>
+    <script src="/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src='/fullcalendar/dist/lang/nl.js'></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 
 
