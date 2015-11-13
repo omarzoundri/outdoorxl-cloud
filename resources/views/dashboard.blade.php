@@ -10,13 +10,16 @@
 @stop
 
 @section('content')
+
+@foreach($news as $new)
 <div class="box">
   <div class="box-header with-border">
-    <h3 class="box-title">Nieuws</h3>
+    <h3 class="box-title"> Titel: <strong>{{ $new->title}}</strong></h3>
   </div><!-- /.box-header -->
   <div class="box-body">
-    <a href="news/">Nieuws bericht</a>
+      {{ $new->body}}
   </div><!-- /.box-body -->
-
 </div><!-- /.box -->
+@endforeach
+
 @stop

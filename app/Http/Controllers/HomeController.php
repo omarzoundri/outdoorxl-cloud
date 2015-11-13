@@ -3,11 +3,13 @@ namespace App\Http\Controllers;
 
 use App\Division;
 use App\User;
+use App\News;
 use App\Http\Requests;
 use App\Http\Requests\AddDivision;
 use App\Http\Requests\EditDivision;
 use App\Http\Requests\AddEmployee;
 use App\Http\Requests\EditEmployee;
+use App\Http\Requests\AddNieuws;
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request, Auth, Mail;
 
@@ -20,7 +22,8 @@ class HomeController extends Controller
 
 	public function dashboard()
 	{
-    	return view('dashboard');
+		$news = News::all();
+    	return view('dashboard', ['news' => $news]);
 	}
 
 	public function getAddNieuws(){
@@ -116,4 +119,20 @@ class HomeController extends Controller
 		$division->delete(Division::all());
 			return redirect('afdelingen');
  	}
+
+ 	public function postAddNieuws(AddNieuws $request)
+ 	{
+ 		$input = $request->all();
+		News::create($input);
+			return redirect('nieuws');
+ 	}
 }
+
+
+
+
+
+
+
+
+
