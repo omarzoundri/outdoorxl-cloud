@@ -10,7 +10,8 @@
         "illuminate/html": "^5.0",
         "guzzlehttp/guzzle": "^6.1",
         "doctrine/dbal": "^2.5",
-        "maddhatter/laravel-fullcalendar": "^1.2"
+        "maddhatter/laravel-fullcalendar": "^1.2",
+        "jenssegers/date": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

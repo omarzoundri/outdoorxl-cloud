@@ -12,6 +12,7 @@ use App\Http\Requests\EditEmployee;
 use App\Http\Requests\AddNieuws;
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request, Auth, Mail;
+use Jenssegers\Date\Date;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,12 @@ class HomeController extends Controller
 	public function getAddNieuws(){
 		return view('addnieuws');
 	}
-
+ 	public function postAddNieuws(AddNieuws $request)
+ 	{
+ 		$input = $request->all();
+		News::create($input);
+			return redirect('nieuws');
+ 	}
 	public function getAddEmployee()
 	{
     	return view('add');
@@ -47,84 +53,114 @@ class HomeController extends Controller
 		$password = str_random(8);
 		$input['password'] = bcrypt($password);
 		User::create($input);
-			return redirect('medewerkers');
+
+		return redirect('medewerkers');
 	}
 
 	public function getEditEmployee($id)
 	{
 		$user = User::findOrFail($id);
-			return view('editemployee', ['user' => $user]);
+
+		return view('editemployee', ['user' => $user]);
 	}
 
 	public function postEditEmployee($id, EditEmployee $request)
 	{
 		$user = User::findOrFail($id);
 		$user->update($request->all());
-			return redirect('medewerkers');
+
+		return redirect('medewerkers');
 	}
 
  	public function getDeleteEmployee($id)
 	{
 		$user = User::findOrFail($id);
-  		return view('deleteEmployee', ['user' => $user]);
+  		return view('delete-employee', ['user' => $user]);
  	}
 
  	public function postDeleteEmployee($id)
 	{
 		$user = User::findOrFail($id);
 		$user->delete(User::all());
+
   		return redirect('medewerkers');
  	}
 
 	public function divisions()
 	{
 		$division = Division::all();
-			return view('divisions', ['division' => $division]);
+		return view('divisions', ['division' => $division]);
 	}
 
 	public function getAddDivision()
 	{
-  		return view('addDivision');
+  		return view('add-division');
  	}
 
  	public function postAddDivision(AddDivision $request)
 	{
 		$input = $request->all();
 		Division::create($input);
-			return redirect('afdelingen');
+
+		return redirect('afdelingen');
  	}
 
 	public function getEditDivision($id)
 	{
 		$division = Division::findOrFail($id);
-			return view('editdivision', ['division' => $division]);
+		return view('editdivision', ['division' => $division]);
  	}
 
  	public function postEditDivision($id, EditDivision $request)
 	{
 		$division = Division::findOrFail($id);
 		$division->update($request->all());
-			return redirect('afdelingen');
+
+		return redirect('afdelingen');
  	}
 
  	public function getDeleteDivision($id)
 	{
 		$division = Division::findOrFail($id);
-			return view('deletedivision', ['division' => $division]);
+		return view('deletedivision', ['division' => $division]);
  	}
 
  	public function postDeleteDivision($id)
 	{
 		$division = Division::findOrFail($id);
 		$division->delete(Division::all());
-			return redirect('afdelingen');
- 	}
 
- 	public function postAddNieuws(AddNieuws $request)
+		return redirect('afdelingen');
+ 	}
+ 	public function getAvailability()
  	{
- 		$input = $request->all();
-		News::create($input);
-			return redirect('nieuws');
+
+ 		for ($i=1; $i <= 30; $i++) { 
+
+ 			echo Date::now()->addDay($i)->format('d-m-Y')." //// ";
+ 		}
+
+ 		//return view('availability');
+ 	}
+ 	public function postAvailability()
+ 	{
+ 		return redirect('availability');
+ 	}
+ 	public function getScheduleEmployee()
+ 	{
+ 		return view('schedule-employee');
+ 	}
+ 	public function postScheduleEmployee()
+ 	{
+ 		return redirect('schedule-employee');
+ 	}
+ 	public function getEditSchedule()
+ 	{
+ 		return view('editschedule');
+ 	}
+ 	public function postEditSchedule()
+ 	{
+ 		return redirect('editschedule');
  	}
 }
 

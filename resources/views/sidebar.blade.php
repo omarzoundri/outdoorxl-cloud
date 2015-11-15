@@ -30,16 +30,21 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
-            <!-- Optionally, you can add icons to the links -->
             <li><a href="/nieuws"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
+
             <li class="header">Beheer</li>
-            <!-- Optionally, you can add icons to the links -->
             <li><a href="/medewerkers"><span>Medewerkers</span></a></li>
             <li><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
             <li><a href="/afdelingen"><span>Afdelingen</span></a></li>
             <li><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
+            @endif
+            <li class="header">Planning</li>
+            <li><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
+            @if (Auth::user()->rank_id == 2)
+            <li><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
+            <li><a href="/planning-wijzigen"><span>Planning wijzigen</span></a></li>
             @endif
             <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->
