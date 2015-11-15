@@ -36,6 +36,16 @@ class HomeController extends Controller
 		News::create($input);
 			return redirect('nieuws');
  	}
+	public function getEditNieuws($id){
+		$news = News::findOrFail($id);
+		return view('editnieuws', compact('news'));
+	}
+	public function postEditNieuws($id){
+		$news = News::findOrFail($id);
+		$news->update($request->all());
+		return redirect('nieuws');
+	}
+
 	public function getAddEmployee()
 	{
     	return view('add');
@@ -135,7 +145,7 @@ class HomeController extends Controller
  	public function getAvailability()
  	{
 
- 		for ($i=1; $i <= 30; $i++) { 
+ 		for ($i=1; $i <= 30; $i++) {
 
  			echo Date::now()->addDay($i)->format('d-m-Y')." //// ";
  		}
@@ -163,12 +173,3 @@ class HomeController extends Controller
  		return redirect('editschedule');
  	}
 }
-
-
-
-
-
-
-
-
-

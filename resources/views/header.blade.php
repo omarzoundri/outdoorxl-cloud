@@ -18,7 +18,7 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{ Carbon\Carbon::now() }}</span>
+                        <span class="hidden-xs"> </span>
                     </a>
                 </li>
             </ul>

@@ -14,7 +14,8 @@
 @foreach($news as $new)
 <div class="box">
   <div class="box-header with-border">
-    <h3 class="box-title"><strong>{{ $new->title}}</strong></h3>
+    <a href="/nieuws/{{ $new->id }}" class="box-title"><strong>{{ $new->title}}</strong></a>
+
     <span>{{ $new->created_at}}</span>
   </div><!-- /.box-header -->
   <div class="box-body">
