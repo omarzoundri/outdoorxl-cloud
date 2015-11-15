@@ -19,3 +19,7 @@ body
 .skin-green .main-header .logo:hover{
 	background: #a3c338;
 }
+.box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header span{
+  color: #8BB143;
+  float: right;
+}

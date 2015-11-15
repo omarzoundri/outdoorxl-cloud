@@ -43,7 +43,7 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials, $request->has('remember'))) 
+        if (Auth::attempt($credentials, $request->has('remember')))
         {
             return redirect('nieuws');
         }
@@ -51,7 +51,7 @@ class AuthController extends Controller
         return redirect('/')
                     ->withInput($request->only('email'))
                     ->withErrors([
-                            'emal' => 'These credentials do not match our records.',
+                            'email' => 'These credentials do not match our records.',
                         ]);
 
     }
