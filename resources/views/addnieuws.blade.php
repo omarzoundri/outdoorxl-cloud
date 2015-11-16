@@ -29,7 +29,7 @@
 			</div>
 
 	   	<div class="form-group">
-	      <label for="division" class="col-sm-2 control-label">Nieuws</label>
+	      <label for="division" class="col-sm-2 control-label">Titel</label>
 	      	<div class="col-sm-10">
 	        	<input type="text" class="form-control" name="title" placeholder="Titel">
 	      	</div>
@@ -40,7 +40,7 @@
 	      	<div class="col-sm-10">
 	        	<textarea class="form-control" name="body" placeholder="Textarea"></textarea>
 	      	</div>
-	    </div>	
+	    </div>
 
 	    <div class="box-footer">
 	    	<button type="submit" class="btn btn-info pull-left">Toevoegen</button>

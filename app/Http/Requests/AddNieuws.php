@@ -24,7 +24,7 @@ class AddNieuws extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:3|max:25',
+            'title' => 'required|min:3|max:40',
             'body' => 'required',
         ];
     }

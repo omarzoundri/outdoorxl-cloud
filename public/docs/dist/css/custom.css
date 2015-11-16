@@ -1,3 +1,8 @@
+*{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
 .box-footer
 .btn{
   padding: 11px 20px;
@@ -10,16 +15,66 @@ body
 .form-control{
 	width: 300px;
 }
-.skin-green .main-header .navbar{
+.skin-green
+.main-header
+.navbar{
 	background: #a3c338;
 }
-.skin-green .main-header .logo{
+.skin-green
+.main-header
+.logo{
 	background: #8BB143;
 }
-.skin-green .main-header .logo:hover{
+.skin-green
+.main-header
+.logo:hover{
 	background: #a3c338;
 }
 .box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header span{
   color: #008d4c;
   float: right;
+  font-weight: 600;
+}
+.content-wrapper
+.content
+.box-header{
+  background-color: #F7F7F9;
+  padding-left: 25px;
+}
+.content-wrapper
+.content
+.box-header a{
+  font-size: 1.25em;
+  color: #3c763d;
+}
+.content-wrapper
+.content
+.box-body{
+  font-size: 16px;
+  padding-left: 25px;
+}
+.content-wrapper
+.content
+.box-body p{
+  border-left: solid 1px;
+  border-color: #d2d6de;
+  padding-left: 10px;
+}
+.content-wrapper
+.content
+.box.box-info {
+    border-top-color: #00c0ef;
+}
+.box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title{
+  font-size: 1.25em;
+  color: #3c763d;
+  font-weight: 700;
+}
+.content
+.box
+.col-sm-10
+textarea{
+  margin: 0px 470.5px 0px 0px;
+  width: 626px;
+  height: 166px;
 }

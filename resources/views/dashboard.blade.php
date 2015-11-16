@@ -19,7 +19,7 @@
     <span>{{ $new->created_at}}</span>
   </div><!-- /.box-header -->
   <div class="box-body">
-      {{ $new->body}}
+      <p>{{ $new->body}}</p>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
 @endforeach
