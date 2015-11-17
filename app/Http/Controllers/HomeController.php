@@ -54,7 +54,7 @@ class HomeController extends Controller
 		$news = News::findOrFail($id);
 		return view('deletenieuws', compact('news'));
 	}
-	public function postDeleteNieuws($id, DeleteNieuws $request){
+	public function postDeleteNieuws($id){
 		$news = News::findOrFail($id);
 		$news->delete(News::all());
 		return redirect('nieuws');

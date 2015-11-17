@@ -10,19 +10,21 @@
 |
 */
 
+//login
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
+
+//dashboard
 Route::get('nieuws', 'HomeController@dashboard' );
 Route::post('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@postAddNieuws']);
 Route::get('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddNieuws']);
-// Route::get('nieuws/{id}/editnieuws', ['middleware' => 'admin', 'uses' => 'HomeController@getEditNieuws']);
-// Route::post('nieuws/{id}/editnieuws',['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
-Route::get('nieuws/{id}', 'HomeController@getNieuws'); //Gets the specific news id
+Route::get('nieuws/{id}', 'HomeController@getNieuws');
 Route::get('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@getEditNieuws']);
 Route::post('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
 Route::get('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteNieuws']);
 Route::post('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteNieuws']);
 
+//employee
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
 Route::post('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@postAddEmployee']);
 Route::get('medewerkers', ['middleware' => 'admin', 'uses' => 'HomeController@employees']);
@@ -31,6 +33,7 @@ Route::post('medewerker/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeCont
 Route::get('medewerker/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteEmployee']);
 Route::post('medewerker/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteEmployee']);
 
+//divisions
 Route::get('afdelingen', ['middleware' => 'admin', 'uses' => 'HomeController@divisions']);
 Route::get('afdeling-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddDivision']);
 Route::post('afdeling-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@postAddDivision']);
@@ -39,19 +42,22 @@ Route::post('afdeling/{id}/edit',['middleware' => 'admin', 'uses' => 'HomeContro
 Route::get('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteDivision']);
 Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteDivision']);
 
+//scheduling for employers
 Route::get('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@getScheduleEmployee']);
 Route::post('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@postScheduleEmployee']);
 
+// scheduling
 Route::get('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@getEditSchedule']);
 Route::post('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@postEditSchedule']);
 
+//availability
 Route::get('beschikbaarheid', ['middleware' => 'admin', 'uses' => 'HomeController@getAvailability']);
 Route::post('beschikbaarheid', ['middleware' => 'admin', 'uses' => 'HomeController@postAvailability']);
 
+//test environment
 Route::get('planning', 'EventController@calendar');
 Route::get('test', 'TestController@test');
-
-
+Route::get('charts', 'TestController@charts');
 
 
 Route::controllers([

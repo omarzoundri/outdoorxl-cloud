@@ -11,6 +11,11 @@ class TestController extends Controller
     public function test()
     {
         $pw = 'test';
-        return bcrypt($pw); 
+        return bcrypt($pw);
+    }
+
+    public function charts()
+    {
+        return view('charts');
     }
 }

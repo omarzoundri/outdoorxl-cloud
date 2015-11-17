@@ -14,6 +14,7 @@
     <!-- Custom CSS3 -->
     <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/moment/min/moment.min.js"></script>
     <script src="/fullcalendar/dist/fullcalendar.js"></script>

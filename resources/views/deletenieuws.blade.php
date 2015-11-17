@@ -5,15 +5,15 @@
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li></i>Beheer</li>
-        <li class="active">Nieuws Verwijderen</li>
+        <li class="active">Nieuws verwijderen</li>
     </ol>
 @stop
 
 @section('content')
 <center>
-  <h4>Weet je zeker dat je de afdeling "" wilt verwijderen?</h4>
+  <h4>Weet je zeker dat je "{{$news->title}}" wilt verwijderen?</h4>
   <form method="POST" action="">
-    <button type="submit" class="btn btn-danger">Verwijder</button>
+    <button type="submit" class="btn btn-danger">Verwijderen</button>
   </form>
 </center>
 @stop
