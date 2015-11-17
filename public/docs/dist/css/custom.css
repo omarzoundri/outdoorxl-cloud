@@ -23,3 +23,40 @@ body
   color: #008d4c;
   float: right;
 }
+#calendar{
+	width: 100%;
+}
+.responstable {
+  margin: 1em 0;
+  width: 100%;
+  overflow: hidden;
+  background: #FFF;
+  color: #024457;
+  border: 1px solid #167F92;
+}
+.responstable tr {
+  border: 1px solid #D9E4E6;
+}
+.responstable tr:nth-child(odd) {
+  background-color: #EAF3F3;
+}
+.responstable th {
+  border: 1px solid #FFF;
+  background-color: #167F92;
+  color: #FFF;
+  padding: 1em; 
+}
+#calendar input.date{
+	display: none;
+}
+.day,.notavailable,.from,.untill{
+	padding: 5px;
+	margin: 10px;
+}
+.doorgeven{
+  background: #167F92;
+  color: #fff;
+  padding: 10px;
+  border: 0;
+  width: 100%;
+}

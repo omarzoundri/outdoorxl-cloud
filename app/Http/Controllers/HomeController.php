@@ -9,6 +9,7 @@ use App\Http\Requests\AddDivision;
 use App\Http\Requests\EditDivision;
 use App\Http\Requests\AddEmployee;
 use App\Http\Requests\EditEmployee;
+use App\Http\Requests\AddAvailability;
 use App\Http\Requests\AddNieuws;
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request, Auth, Mail;
@@ -145,16 +146,12 @@ class HomeController extends Controller
  	public function getAvailability()
  	{
 
- 		for ($i=1; $i <= 30; $i++) {
-
- 			echo Date::now()->addDay($i)->format('d-m-Y')." //// ";
- 		}
-
- 		//return view('availability');
+ 		Date::setLocale('nl');
+ 		return view('availability');
  	}
- 	public function postAvailability()
+ 	public function postAvailability(AddAvailability $request)
  	{
- 		return redirect('availability');
+ 		return $request->from;
  	}
  	public function getScheduleEmployee()
  	{

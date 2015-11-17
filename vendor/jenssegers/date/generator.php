@@ -4,31 +4,31 @@ require 'vendor/autoload.php';
 use Jenssegers\Date\Date;
 
 // Set the language
-setlocale(LC_ALL, $argv[1] ?: 'en');
+setlocale(LC_ALL, $argv[1] ?: 'nl');
 
 $months = array(
-    'january',
-    'february',
-    'march',
-    'april',
-    'may',
-    'june',
-    'july',
-    'august',
-    'september',
-    'october',
-    'november',
-    'december',
+    'Januari',
+    'Februari',
+    'Maart',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Augustus',
+    'September',
+    'Oktober',
+    'November',
+    'December',
 );
 
 $days = array(
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
-    'sunday',
+    'Maandag',
+    'Dinsdag',
+    'Woensdag',
+    'Donderdag',
+    'Vrijdag',
+    'Zaterdag',
+    'Zondag',
 );
 
 $translations = array();
