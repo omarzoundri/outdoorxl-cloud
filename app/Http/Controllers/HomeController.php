@@ -10,6 +10,7 @@ use App\Http\Requests\EditDivision;
 use App\Http\Requests\AddEmployee;
 use App\Http\Requests\EditEmployee;
 use App\Http\Requests\AddNieuws;
+use App\Http\Requests\EditNieuws;
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request, Auth, Mail;
 use Jenssegers\Date\Date;
@@ -26,7 +27,10 @@ class HomeController extends Controller
 		$news = News::all();
     	return view('dashboard', ['news' => $news]);
 	}
-
+	public function getNieuws($id){
+		$news = News::findOrFail($id);
+		return view('nieuws', compact('news'));
+	}
 	public function getAddNieuws(){
 		return view('addnieuws');
 	}
@@ -34,16 +38,25 @@ class HomeController extends Controller
  	{
  		$input = $request->all();
 		News::create($input);
-			return redirect('nieuws');
+		return redirect('nieuws');
  	}
 	public function getEditNieuws($id){
 		$news = News::findOrFail($id);
 		return view('editnieuws', compact('news'));
 	}
-	public function postEditNieuws($id){
+	public function postEditNieuws($id, EditNieuws $request){
 		$news = News::findOrFail($id);
 		$news->update($request->all());
-		return redirect('nieuws', compact('news'));
+		return redirect('nieuws');
+	}
+	public function getDeleteNieuws($id){
+		$news = News::findOrFail($id);
+		return view('deletenieuws', compact('news'));
+	}
+	public function postDeleteNieuws($id, DeleteNieuws $request){
+		$news = News::findOrFail($id);
+		$news->delete(News::all());
+		return redirect('nieuws');
 	}
 
 	public function getAddEmployee()

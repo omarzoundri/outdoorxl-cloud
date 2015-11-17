@@ -6,7 +6,6 @@
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
 */
@@ -18,7 +17,11 @@ Route::post('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeControl
 Route::get('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddNieuws']);
 // Route::get('nieuws/{id}/editnieuws', ['middleware' => 'admin', 'uses' => 'HomeController@getEditNieuws']);
 // Route::post('nieuws/{id}/editnieuws',['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
-Route::get('nieuws/{id}', 'HomeController@getEditNieuws');
+Route::get('nieuws/{id}', 'HomeController@getNieuws'); //Gets the specific news id
+Route::get('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@getEditNieuws']);
+Route::post('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
+Route::get('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteNieuws']);
+Route::post('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteNieuws']);
 
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
 Route::post('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@postAddEmployee']);

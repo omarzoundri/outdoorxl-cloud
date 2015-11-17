@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class AddNieuws extends Request
+class EditNieuws extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class AddNieuws extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:3|max:50',
-            'body' => 'required',
+          'title' => 'required|min:3|max:50',
+          'body' => 'required',
         ];
     }
 }
