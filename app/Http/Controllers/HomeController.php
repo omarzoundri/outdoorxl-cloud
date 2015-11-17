@@ -44,14 +44,13 @@ class HomeController extends Controller
 	public function postEditNieuws($id){
 		$news = News::findOrFail($id);
 		$news->update($request->all());
-		return redirect('nieuws');
+		return redirect('nieuws', compact('news'));
 	}
 
 	public function getAddEmployee()
 	{
     	return view('add');
 	}
-
 	public function employees()
 	{
 		$users = User::all();
