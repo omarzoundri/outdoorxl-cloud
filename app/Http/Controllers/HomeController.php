@@ -1,17 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Division;
-use App\User;
-use App\News;
-use App\Http\Requests;
-use App\Http\Requests\AddDivision;
-use App\Http\Requests\EditDivision;
-use App\Http\Requests\AddEmployee;
-use App\Http\Requests\EditEmployee;
-use App\Http\Requests\AddAvailability;
-use App\Http\Requests\AddNieuws;
-use App\Http\Requests\EditNieuws;
+use App\Division, App\Planning, App\News, App\User;
+use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision, App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee, App\Http\Requests\AddAvailability;
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request, Auth, Mail;
 use Jenssegers\Date\Date;
@@ -21,6 +12,7 @@ class HomeController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+		Date::setLocale('nl');
 	}
 
 	public function dashboard()
@@ -158,12 +150,33 @@ class HomeController extends Controller
  	public function getAvailability()
  	{
 
- 		Date::setLocale('nl');
- 		return view('availability');
+		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
+		$status = false;
+		
+ 		return view('availability', ['planning' => $planning, 'status' => $status]);
  	}
  	public function postAvailability(AddAvailability $request)
  	{
- 		return $request->from;
+
+ 		for ($i=0; $i <= 27; $i++) { 
+
+ 			$planning = new Planning;
+
+			$planning->date = $request->date[$i];
+			if (isset($request->day[$i])) {
+				$planning->day = $request->day[$i];
+			}
+			if (isset($request->notavailable[$i])) {
+				$planning->unavailable = $request->notavailable[$i];
+			}
+			$planning->from = $request->from[$i];
+			$planning->untill = $request->untill[$i];
+			$planning->user_id = Auth::user()->id;
+
+			$planning->save();
+ 		}
+
+ 		return redirect('beschikbaarheid');
  	}
  	public function getScheduleEmployee()
  	{

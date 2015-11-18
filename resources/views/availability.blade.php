@@ -21,9 +21,22 @@
 	  </tr>
 	  
 	  <tr>
-	    @for ($i=1; $i <= 7; $i++)
-    	<td>
-    		<input type="text" class="date" name="date[]" value="{{Date::parse('+2 weeks')->addDay($i)->format('d-m-Y')}}" readonly>
+	    @for($i=1; $i <= 7; $i++)
+		    @foreach($planning as $plan)
+			    @if($plan->date == Date::parse('+2 weeks')->addDay($i)->format('Y-m-d'))
+			    	<?php echo 'hi';$status = true; ?>
+			    @else
+			    	<?php echo 'ih';$status = false; ?>
+				@endif
+			@endforeach
+
+			<?php var_dump($status); ?>
+			@if($status == 'true')
+			<td style="background: #000">
+			@elseif($status != true)
+			<td>
+			@endif
+    		<input type="text" class="date" name="date[]" value="{{Date::parse('+2 weeks')->addDay($i)->format('Y-m-d')}}" readonly>
     		<label for="day">Hele dag:</label>
     		<input class="day" type="checkbox" name="day[]" value="1"><br>
     		<label for="notavailable">Niet beschikbaar:</label>
@@ -92,7 +105,7 @@
 	  <tr>
 	    @for ($i=1; $i <= 7; $i++)
     	<td>
-    		<input type="text" class="date" name="date[]" value="{{Date::parse('+3 weeks')->addDay($i)->format('d-m-Y')}}" readonly>
+    		<input type="text" class="date" name="date[]" value="{{Date::parse('+3 weeks')->addDay($i)->format('Y-m-d')}}" readonly>
     		<label for="day">Hele dag:</label>
     		<input class="day" type="checkbox" name="day[]" value="1"><br>
     		<label for="notavailable">Niet beschikbaar:</label>
@@ -161,7 +174,7 @@
 	  <tr>
 	    @for ($i=1; $i <= 7; $i++)
     	<td>
-    		<input type="text" class="date" name="date[]" value="{{Date::parse('+4 weeks')->addDay($i)->format('d-m-Y')}}" readonly>
+    		<input type="text" class="date" name="date[]" value="{{Date::parse('+4 weeks')->addDay($i)->format('Y-m-d')}}" readonly>
     		<label for="day">Hele dag:</label>
     		<input class="day" type="checkbox" name="day[]" value="1"><br>
     		<label for="notavailable">Niet beschikbaar:</label>
@@ -230,7 +243,7 @@
 	  <tr>
 	    @for ($i=1; $i <= 7; $i++)
     	<td>
-    		<input type="text" class="date" name="date[]" value="{{Date::parse('+5 weeks')->addDay($i)->format('d-m-Y')}}" readonly>
+    		<input type="text" class="date" name="date[]" value="{{Date::parse('+5 weeks')->addDay($i)->format('Y-m-d')}}" readonly>
     		<label for="day">Hele dag:</label>
     		<input class="day" type="checkbox" name="day[]" value="1"><br>
     		<label for="notavailable">Niet beschikbaar:</label>
