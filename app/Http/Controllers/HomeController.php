@@ -178,18 +178,23 @@ class HomeController extends Controller
 
  		return redirect('beschikbaarheid');
  	}
+
  	public function getScheduleEmployee()
  	{
- 		return view('schedule-employee');
+ 		$users = User::all();
+			return view('schedule-employee', ['users' => $users]);
  	}
+
  	public function postScheduleEmployee()
  	{
  		return redirect('schedule-employee');
  	}
+
  	public function getEditSchedule()
  	{
  		return view('editschedule');
  	}
+
  	public function postEditSchedule()
  	{
  		return redirect('editschedule');
