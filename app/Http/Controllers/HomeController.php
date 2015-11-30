@@ -52,14 +52,15 @@ class HomeController extends Controller
 		return redirect('nieuws');
 	}
 
-	public function getAddEmployee()
-	{
-    	return view('add');
-	}
 	public function employees()
 	{
 		$users = User::all();
 			return view('employees', ['users' => $users]);
+	}
+
+	public function getAddEmployee()
+	{
+    	return view('add');
 	}
 
 	public function postAddEmployee(AddEmployee $request)
@@ -154,6 +155,7 @@ class HomeController extends Controller
 		$status = false;
 		
  		return view('availability', ['planning' => $planning, 'status' => $status]);
+
  	}
  	public function postAvailability(AddAvailability $request)
  	{
