@@ -13,6 +13,7 @@
 <div id="calendar">
 	<form method="post">
 	<table class="responstable">
+
 	@for($x=0; $x <= 3; $x++)
 		<tr>
 		{{--*/ $w = 7 * $x /*--}}
@@ -23,8 +24,8 @@
 		</tr>
 	  <tr>
 	  	@for($i=$w; $i < $k; $i++)
-	  	@foreach($planning as $plan)
-	  	<td @if(Date::parse()->addDay($i)->format('Y-m-d') == $plan->date)style="background: #000"@endif>
+	  	<td>
+        
 		<input type="text" class="date" name="date[]" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}" readonly>
 		<label for="day">Hele dag:</label>
 		<input class="day" type="checkbox" name="day[]" value="1"><br>
@@ -83,10 +84,10 @@
     		<option value="21">21:00</option>
   		</select>
 	</td>
-	@endforeach
 	@endfor
   </tr>
-  @endfor
+  @endfor   
+
 </table>
 	<input class="doorgeven" type="submit" name="name">
 	</form>

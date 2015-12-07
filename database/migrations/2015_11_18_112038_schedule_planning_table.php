@@ -20,6 +20,7 @@ class SchedulePlanningTable extends Migration
             $table->decimal('from');
             $table->decimal('untill');
             $table->integer('user_id');
+            $table->integer('division_id');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

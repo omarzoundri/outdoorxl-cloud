@@ -15,56 +15,60 @@
     <h3 class="box-title">Medewerkers Inplannen</h3>
   </div><!-- /.box-header -->
 
-  @foreach ($users as $user)
+  
   <div class="box-body">
     <table class="pure-table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Medewerker</th>
             <th>Afdeling</th>
-            <th>Rank(?)</th>
-            <th>Bevestigen</th>
+            <th>Medewerkers</th>
+
+            <!-- Dit schrijft de dagen van de huidige week op -->
+            @for($i=0; $i < 7; $i++)
+                <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
+            @endfor
         </tr>
     </thead>
+<tbody>
 
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>{{ $user->name}}</td>
-            <td>{{ $user->rank_id}}</td>
-            <td>2009</td>
-            <td><div class="tdbutton"><a href="#">Inplannen</a></div></td>
-        </tr>
+<!-- Deze variable zorgt ervoor det er geen td's ontbreken -->
+{{--*/ $planningfound = false /*--}}
 
-        <tr>
-            <td>2</td>
-            <td>Toyota</td>
-            <td>Camry</td>
-            <td>2012</td>
-            <td><div class="tdbutton"><a href="#">Inplannen</a></div></td>
-        </tr>
+<!-- Door alle afdelingen heen loopen -->
+@foreach ($divisions as $division)
 
-        <tr>
-            <td>3</td>
-            <td>Hyundai</td>
-            <td>Elantra</td>
-            <td>2010</td>
-            <td><div class="tdbutton"><a href="#">Inplannen</a></div></td>
-        </tr>
+    <!-- Mederwerks per afdeling bekijken -->
+    @foreach ($users as $user)
+        <!-- Controleert of deze medewerker bij deze afdeling hoort -->
+        @if($user->division_id == $division->division_id)
+            <tr>
+                <td>
+                    {{ $division->division}}
+                </td>
+                <td>{{ $user->name}}</td>   
+            <!-- Voor elke dag de planning ophalen van de medewerker -->
+            @for($i=0; $i < 7; $i++)
+                @foreach($planning as $plan)
+                    @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
+                        {{--*/ $planningfound = true /*--}}
+                        <td>{{ $plan->from}} - {{ $plan->untill}}</td>
+                    @endif
+                @endforeach
 
-        <tr>
-            <td>3</td>
-            <td>Hyundai</td>
-            <td>Elantra</td>
-            <td>2010</td>
-            <td><div class="tdbutton"><a href="#">Inplannen</a></div></td>
-        </tr>
-    </tbody>
+                @if($planningfound == false)
+                    <td></td>
+                @else
+                    {{--*/ $planningfound = false /*--}}
+                @endif
+            @endfor 
+
+            </tr>
+        @endif
+    @endforeach
+@endforeach
+</tbody>
+
 </table>
   </div><!-- /.box-body -->
-  @endforeach
-
-
 </div><!-- /.box -->
 @stop

@@ -6,6 +6,7 @@ use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests
 use App\Http\Controllers\Controller;
 use Validator, Input, Redirect, Hash, Request, Auth, Mail;
 use Jenssegers\Date\Date;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -159,7 +160,6 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
-
  		for ($i=0; $i <= 27; $i++) { 
 
  			$planning = new Planning;
@@ -184,7 +184,13 @@ class HomeController extends Controller
  	public function getScheduleEmployee()
  	{
  		$users = User::all();
-			return view('schedule-employee', ['users' => $users]);
+ 		$divisions = Division::all();
+ 		$monday = Carbon::now()->startofweek();
+ 		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
+ 						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
+ 						->get();
+
+		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
  	}
 
  	public function postScheduleEmployee()
@@ -194,7 +200,11 @@ class HomeController extends Controller
 
  	public function getEditSchedule()
  	{
- 		return view('editschedule');
+ 		$users = User::all();
+ 		$divisions = Division::all();
+ 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
+
+		return view('editschedule', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning]);
  	}
 
  	public function postEditSchedule()

@@ -51,8 +51,8 @@ Route::get('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeControl
 Route::post('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@postEditSchedule']);
 
 //availability
-Route::get('beschikbaarheid', ['middleware' => 'admin', 'uses' => 'HomeController@getAvailability']);
-Route::post('beschikbaarheid', ['middleware' => 'admin', 'uses' => 'HomeController@postAvailability']);
+Route::get('beschikbaarheid', 'HomeController@getAvailability');
+Route::post('beschikbaarheid', 'HomeController@postAvailability');
 
 //test environment
 Route::get('planning', 'EventController@calendar');
