@@ -19,7 +19,9 @@ class HomeController extends Controller
 		$this->middleware('auth');
 		Date::setLocale('nl');
 	}
-
+	public function getEditProfile(){
+		return view('editprofile');
+	}
 	public function dashboard()
 	{
 		$news = News::all();
@@ -158,13 +160,13 @@ class HomeController extends Controller
 
 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
 		$status = false;
-		
+
  		return view('availability', ['planning' => $planning, 'status' => $status]);
 
  	}
  	public function postAvailability(AddAvailability $request)
  	{
- 		for ($i=0; $i <= 27; $i++) { 
+ 		for ($i=0; $i <= 27; $i++) {
 
  			$planning = new Planning;
 
