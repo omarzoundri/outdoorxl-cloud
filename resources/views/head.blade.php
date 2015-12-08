@@ -14,28 +14,14 @@
     <!-- Custom CSS3 -->
     <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/moment/min/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="{{ asset("/docs/dist/js/custom.js")}}"></script>
+    <script src="/chartsjs/Chart.min.js"></script>
     <script src="/fullcalendar/dist/fullcalendar.js"></script>
     <script src='/fullcalendar/dist/lang/nl.js'></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-    <script type="text/javascript">
-    $('#calendar').fullCalendar({
-        dayClick: function(date, jsEvent, view) {
-
-            alert('Clicked on: ' + date.format());
-
-            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-            alert('Current view: ' + view.name);
-
-            // change the day's background color just for fun
-            $(this).css('background-color', 'red');
-
-        }
-    });
-    </script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

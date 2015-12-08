@@ -11,6 +11,8 @@
 
 @section('content')
 <center>
-  <h4>fosachi</h4>
+  <canvas id="testchart" width="600" height="400"></canvas>
+
+
 </center>
 @stop
