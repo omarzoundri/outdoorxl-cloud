@@ -2,11 +2,15 @@
 namespace App\Http\Controllers;
 
 use App\Division, App\Planning, App\News, App\User;
-use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision, App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee, App\Http\Requests\AddAvailability;
+use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision;
+use App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee;
+use Illuminate\Http\Request;
+use App\Http\Requests\AddAvailability, App\Http\Requests\PostSchedule;
 use App\Http\Controllers\Controller;
-use Validator, Input, Redirect, Hash, Request, Auth, Mail;
+use Validator, Input, Redirect, Hash, Auth, Mail;
 use Jenssegers\Date\Date;
 use Carbon\Carbon;
+use DB;
 
 class HomeController extends Controller
 {
@@ -185,26 +189,33 @@ class HomeController extends Controller
  	{
  		$users = User::all();
  		$divisions = Division::all();
- 		$monday = Carbon::now()->startofweek();
- 		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
- 						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
+ 		$today = Carbon::today();
+ 		$planning = Planning::where('date', '>=', Carbon::today())
+ 						->where('date', '<=', Carbon::today()->addWeek())
  						->get();
 
-		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'today' => $today]);
  	}
 
- 	public function postScheduleEmployee()
+ 	public function postScheduleEmployee(Request $request)
  	{
- 		return redirect('schedule-employee');
+ 		//Ophalen aangeklikte id 
+ 		$planning_id = $request->_planningid;
+ 		//Ophalen aangespaste status van aangeklikte id
+ 		$status = $request->_status;
+
+ 		//Updaten van tabel
+ 		DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->update(['status' => $status]);
+
+        //Terug geven json resultaat
+ 		return '{"result":"'.$status.'"}';
  	}
 
  	public function getEditSchedule()
  	{
- 		$users = User::all();
- 		$divisions = Division::all();
- 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
-
-		return view('editschedule', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning]);
+ 		
  	}
 
  	public function postEditSchedule()
@@ -212,3 +223,14 @@ class HomeController extends Controller
  		return redirect('editschedule');
  	}
 }
+
+
+
+
+
+
+
+
+
+
+
