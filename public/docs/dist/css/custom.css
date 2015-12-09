@@ -119,14 +119,14 @@ textarea{
 .pure-table{
   color: #333;
 font-family: Helvetica, Arial, sans-serif;
-width: 100%; 
-border-collapse: 
-collapse; border-spacing: 0; 
+width: 100%;
+border-collapse:
+collapse; border-spacing: 0;
 }
 
-td, th { 
+td, th {
 border: 1px solid transparent; /* No more visible border */
-height: 30px; 
+height: 30px;
 transition: all 0.3s;  /* Simple transition for hover effect */
 }
 
@@ -156,7 +156,7 @@ tr:nth-child(odd) td { background: #FEFEFE; }
     outline: none;
 }
 
-.kleur1{  
+.kleur1{
     margin-top: 50px;
     width: 250px;
     height: 40px;
@@ -169,18 +169,4 @@ tr:nth-child(odd) td { background: #FEFEFE; }
 
 .planningid{
   background-color: #f4f4f4;
-}
-
-
-
-
-
-
-
-
-.user-panel .info .authname{
-  font-weight: 600;
-  margin-bottom: 7px;
-  font-size: 14px;
-  display: block;
 }

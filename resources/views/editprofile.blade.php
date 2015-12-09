@@ -29,32 +29,32 @@
     <div class="form-group">
       <label for="division" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="division" placeholder="E-mail">
+          <input type="email" class="form-control" name="division" placeholder="{{ $users->email }}">
         </div>
     </div>
     <hr>
     <div class="form-group">
       <label for="division" class="col-sm-2 control-label">Huidige Wachtwoord</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="division" placeholder="Huidige Wachtwoord">
+          <input type="password" class="form-control" name="oldpassword" placeholder="Huidige Wachtwoord">
         </div>
     </div>
     <div class="form-group">
       <label for="division" class="col-sm-2 control-label">Nieuwe wachtwoord</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="division" placeholder="Nieuwe wachtwoord">
+          <input type="password" class="form-control" name="newpassword"  placeholder="Nieuwe wachtwoord">
         </div>
     </div>
     <div class="form-group">
-      <label for="division" class="col-sm-2 control-label"></label>
+      <label for="division" class="col-sm-2 control-label">Wachtwoord bevestigen</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="division" placeholder="Nieuwe wachtwoord bevestigen">
+          <input type="password" class="form-control" name="confirmpassword"  placeholder="Nieuwe wachtwoord bevestigen">
         </div>
     </div>
 
     <div class="box-footer">
-      <button type="submit" class="btn btn-info pull-left">Update</button>
-    </div><!-- /.box-footer -->
+      <button type="submit" class="btn btn-info pull-left">Update profile</button>
+    </div>
   </div><!-- /.box-body -->
 </form>
 

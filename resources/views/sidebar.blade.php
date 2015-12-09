@@ -10,7 +10,7 @@
                 <img src="{{ asset("/docs/dist/img/gaben.jpg") }}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <a class="authname" href="editprofile">{!! Auth::user()->name !!}</a>
+                <p class="authname">{!! Auth::user()->name !!}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -46,6 +46,8 @@
             <li><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
             <li><a href="/planning-wijzigen"><span>Planning wijzigen</span></a></li>
             @endif
+            <li class="header">Profiel</li>
+            <li><a href="/editprofile/{!! Auth::user()->id !!}"><span>Profiel wijzigen</span></a></li>
             <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->
     </section>

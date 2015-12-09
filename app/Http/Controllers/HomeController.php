@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Division, App\Planning, App\News, App\User;
-use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision;
+use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision, App\Http\Requests\EditProfile;
 use App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddAvailability, App\Http\Requests\PostSchedule;
@@ -19,8 +19,28 @@ class HomeController extends Controller
 		$this->middleware('auth');
 		Date::setLocale('nl');
 	}
-	public function getEditProfile(){
-		return view('editprofile');
+	public function getEditProfile($id){
+		$users = User::findOrFail($id);
+		return view('editprofile', compact('users'));
+	}
+	public function postEditProfile($id, EditProfile $request){
+		$users = User::findOrFail($id);
+			if(bcrypt(Auth::user()->password) != $users->password){
+				return "nope";
+			} else {
+					$users->update($request->password());
+			}
+			/*$input = $request->all();
+			$password = bcrypt($request->oldpassword);
+			if ($password == Auth::user()->password) {
+
+				$input['password'] = Hash::make($input['password']);
+				$users = User::find($id);
+				$users->update($input);
+				return redirect('dashboard');
+			}*/
+		return view('editprofile', compact('users'));
+
 	}
 	public function dashboard()
 	{
@@ -201,7 +221,7 @@ class HomeController extends Controller
 
  	public function postScheduleEmployee(Request $request)
  	{
- 		//Ophalen aangeklikte id 
+ 		//Ophalen aangeklikte id
  		$planning_id = $request->_planningid;
  		//Ophalen aangespaste status van aangeklikte id
  		$status = $request->_status;
@@ -217,7 +237,7 @@ class HomeController extends Controller
 
  	public function getEditSchedule()
  	{
- 		
+
  	}
 
  	public function postEditSchedule()
@@ -225,14 +245,3 @@ class HomeController extends Controller
  		return redirect('editschedule');
  	}
 }
-
-
-
-
-
-
-
-
-
-
-
