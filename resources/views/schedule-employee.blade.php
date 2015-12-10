@@ -25,15 +25,17 @@
 
             <!-- Dit schrijft de dagen van de huidige week op -->
             @for($i=0; $i < 7; $i++)
-                <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
+                <th>{{Date::parse($today)->addDay($i)->format('l d F')}}</th>
             @endfor
         </tr>
     </thead>
-<tbody>
+<tbody>     
+
 
 <!-- Deze variable zorgt ervoor det er geen td's ontbreken -->
 {{--*/ $planningfound = false /*--}}
 
+<form method="post">
 <!-- Door alle afdelingen heen loopen -->
 @foreach ($divisions as $division)
 
@@ -49,9 +51,14 @@
             <!-- Voor elke dag de planning ophalen van de medewerker -->
             @for($i=0; $i < 7; $i++)
                 @foreach($planning as $plan)
-                    @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
+                    @if(($user->id == $plan->user_id) && (Date::parse($today)->addDay($i)->format('Y-m-d') ==  $plan->date))
                         {{--*/ $planningfound = true /*--}}
-                        <td>{{ $plan->from}} - {{ $plan->untill}}</td>
+                        <td>
+                            <div class="inplannenuren">
+                                    <button type="button" class="planningid" name="planningid" value="{{ $plan->status }}" onclick="postScheduleEmployee(this,{{ $plan->planning_id }})" >
+                                    {{$plan->from}} - {{ $plan->untill}}
+                            </div>
+                        </td>
                     @endif
                 @endforeach
 
@@ -66,9 +73,13 @@
         @endif
     @endforeach
 @endforeach
+</form>
 </tbody>
 
 </table>
+    <div class="kleur1"><span>Ingeplanned (status = 1)</span></div>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
 @stop
+
+

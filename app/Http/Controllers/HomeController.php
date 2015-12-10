@@ -2,11 +2,15 @@
 namespace App\Http\Controllers;
 
 use App\Division, App\Planning, App\News, App\User;
-use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision, App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee, App\Http\Requests\AddAvailability;
+use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision, App\Http\Requests\EditProfile;
+use App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee;
+use Illuminate\Http\Request;
+use App\Http\Requests\AddAvailability, App\Http\Requests\PostSchedule;
 use App\Http\Controllers\Controller;
-use Validator, Input, Redirect, Hash, Request, Auth, Mail;
+use Validator, Input, Redirect, Hash, Auth, Mail;
 use Jenssegers\Date\Date;
 use Carbon\Carbon;
+use DB;
 
 class HomeController extends Controller
 {
@@ -15,7 +19,29 @@ class HomeController extends Controller
 		$this->middleware('auth');
 		Date::setLocale('nl');
 	}
+	public function getEditProfile($id){
+		$users = User::findOrFail($id);
+		return view('editprofile', compact('users'));
+	}
+	public function postEditProfile($id, EditProfile $request){
+		$users = User::findOrFail($id);
+			if(bcrypt(Auth::user()->password) != $users->password){
+				return "nope";
+			} else {
+					$users->update($request->password());
+			}
+			/*$input = $request->all();
+			$password = bcrypt($request->oldpassword);
+			if ($password == Auth::user()->password) {
 
+				$input['password'] = Hash::make($input['password']);
+				$users = User::find($id);
+				$users->update($input);
+				return redirect('dashboard');
+			}*/
+		return view('editprofile', compact('users'));
+
+	}
 	public function dashboard()
 	{
 		$news = News::all();
@@ -153,14 +179,23 @@ class HomeController extends Controller
  	{
 
 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
+<<<<<<< HEAD
 		$status = 0;
 		
+=======
+		$status = false;
+
+>>>>>>> 9f7b795ee6bec60aed399c0ba92134f5d8d3a405
  		return view('availability', ['planning' => $planning, 'status' => $status]);
 
  	}
  	public function postAvailability(AddAvailability $request)
  	{
+<<<<<<< HEAD
  		/*for ($i=0; $i <= 27; $i++) { 
+=======
+ 		for ($i=0; $i <= 27; $i++) {
+>>>>>>> 9f7b795ee6bec60aed399c0ba92134f5d8d3a405
 
  			$planning = new Planning;
 
@@ -195,26 +230,33 @@ class HomeController extends Controller
  	{
  		$users = User::all();
  		$divisions = Division::all();
- 		$monday = Carbon::now()->startofweek();
- 		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
- 						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
+ 		$today = Carbon::today();
+ 		$planning = Planning::where('date', '>=', Carbon::today())
+ 						->where('date', '<=', Carbon::today()->addWeek())
  						->get();
 
-		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'today' => $today]);
  	}
 
- 	public function postScheduleEmployee()
+ 	public function postScheduleEmployee(Request $request)
  	{
- 		return redirect('schedule-employee');
+ 		//Ophalen aangeklikte id
+ 		$planning_id = $request->_planningid;
+ 		//Ophalen aangespaste status van aangeklikte id
+ 		$status = $request->_status;
+
+ 		//Updaten van tabel
+ 		DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->update(['status' => $status]);
+
+        //Terug geven json resultaat
+ 		return '{"result":"'.$status.'"}';
  	}
 
  	public function getEditSchedule()
  	{
- 		$users = User::all();
- 		$divisions = Division::all();
- 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
 
-		return view('editschedule', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning]);
  	}
 
  	public function postEditSchedule()

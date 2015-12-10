@@ -14,6 +14,10 @@
 Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
 
+//edit profile
+Route::get('editprofile/{id}', 'HomeController@getEditProfile');
+Route::post('editprofile/{id}', 'HomeController@postEditProfile');
+
 //dashboard
 Route::get('nieuws', 'HomeController@dashboard' );
 Route::post('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@postAddNieuws']);
