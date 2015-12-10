@@ -13,85 +13,94 @@
 <div id="calendar">
 	<form method="post">
 	<table class="responstable">
-
-	@for($x=0; $x <= 3; $x++)
-		<tr>
-		{{--*/ $w = 7 * $x /*--}}
-		{{--*/ $k = $w + 7 /*--}}
-		@for($s=$w; $s < $k; $s++)
-			<th>{{Date::parse()->addDay($s)->format('l d F')}}</th>
-		@endfor
-		</tr>
-	  <tr>
-	  	@for($i=$w; $i < $k; $i++)
-	  	<td>
-        
-		<input type="text" class="date" name="date[]" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}" readonly>
-		<label for="day">Hele dag:</label>
-		<input class="day" type="checkbox" name="day[]" value="1"><br>
-		<label for="notavailable">Niet beschikbaar:</label>
-		<input class="notavailable" type="checkbox" name="notavailable[]" value="1"><br>
-		<label for="from">Van</label>
-		<select class="from" name="from[]">
-    		<option value="10">10:00</option>
-    		<option value="10,5">10:30</option>
-    		<option value="11">11:00</option>
-    		<option value="11,5">11:30</option>
-    		<option value="12">12:00</option>
-    		<option value="12,5">12:30</option>
-    		<option value="13">13:00</option>
-    		<option value="13,5">13:30</option>
-    		<option value="14">14:00</option>
-    		<option value="14,5">14:30</option>
-    		<option value="15">15:00</option>
-    		<option value="15,5">15:30</option>
-    		<option value="16">16:00</option>
-    		<option value="16,5">16:30</option>
-    		<option value="17">17:00</option>
-    		<option value="17,5">17:30</option>
-    		<option value="18">18:00</option>
-    		<option value="18,5">18:30</option>
-    		<option value="19">19:00</option>
-    		<option value="19,5">19:30</option>
-    		<option value="20">20:00</option>
-    		<option value="20,5">20:30</option>
-    		<option value="21">21:00</option>
-  		</select><br>
-  		<label for="untill">Tot</label>
-		<select class="untill" name="untill[]">
-    		<option value="10">10:00</option>
-    		<option value="10,5">10:30</option>
-    		<option value="11">11:00</option>
-    		<option value="11,5">11:30</option>
-    		<option value="12">12:00</option>
-    		<option value="12,5">12:30</option>
-    		<option value="13">13:00</option>
-    		<option value="13,5">13:30</option>
-    		<option value="14">14:00</option>
-    		<option value="14,5">14:30</option>
-    		<option value="15">15:00</option>
-    		<option value="15,5">15:30</option>
-    		<option value="16">16:00</option>
-    		<option value="16,5">16:30</option>
-    		<option value="17">17:00</option>
-    		<option value="17,5">17:30</option>
-    		<option value="18">18:00</option>
-    		<option value="18,5">18:30</option>
-    		<option value="19">19:00</option>
-    		<option value="19,5">19:30</option>
-    		<option value="20">20:00</option>
-    		<option value="20,5">20:30</option>
-    		<option value="21">21:00</option>
-  		</select>
-	</td>
-	@endfor
-  </tr>
-  @endfor   
-
-</table>
-	<input class="doorgeven" type="submit" name="name">
+    	@for($x=0; $x <= 3; $x++)
+    	<tr>
+    	{{--*/ $w = 7 * $x /*--}}
+    	{{--*/ $k = $w + 7 /*--}}
+    	   @for($s=$w; $s < $k; $s++)
+    	   <th>{{Date::parse()->addDay($s)->format('l d F')}}</th>
+    	   @endfor
+    	</tr>
+    	<tr>
+    	  	@for($i=$w; $i < $k; $i++)
+                @if(isset($planning))
+                    @foreach($planning as $plan)
+                        @if($plan->date === Date::parse()->addDay($i)->format('Y-m-d'))
+                            {{--*/ $status = 1 /*--}}
+                            @if($plan->day == 1){{--*/ $day = 1 /*--}}@endif
+                            @if($plan->unavailable == 1){{--*/ $unavailable = 1 /*--}}@endif
+                            {{--*/ $start = substr($plan->from, 0, 2) /*--}}
+                            {{--*/ $end = substr($plan->untill, 0, 2) /*--}}
+                            <?php break;?>
+                        @else
+                            {{--*/ $status = 0 /*--}}
+                            @if($plan->day != 1){{--*/ $day = 0 /*--}}@endif
+                            @if($plan->unavailable != 1){{--*/ $unavailable = 0 /*--}}@endif
+                        @endif
+                    @endforeach
+                @endif
+                <td @if($status == 1)style="background: green; color: black"@else style="background: white"@endif>
+                    <input type="text" class="date" name="date[]" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}" readonly>
+                    <label for="day">Hele dag:</label>
+                    <input class="day" type="checkbox" @if($day == 1)checked="checked"@endif name="day[]" value="1"><br>
+                    <label for="notavailable">Niet beschikbaar:</label>
+                    <input class="notavailable" type="checkbox" @if($unavailable == 1)checked="checked"@endif name="notavailable[]" value="1"><br>
+                    <label for="from">Van</label>
+                    <select id="postAvailability({{ $plan->planning_id }})" class="from" name="from[]">
+                        @for($u=10; $u <= 21; $u++)
+                            @if($status == 0)
+                                @if($u == 10)
+                                    <option disabled selected>-- select --</option>
+                                @endif
+                                <option value="{{ $u }}">{{ $u }}:00</option>
+                            @else
+                                @if($u == 10)
+                                    <option value="{{ $start }}" selected>{{ $start }}:00</option>
+                                @endif
+                                @if($start != $u)
+                                <option value="{{ $u }}">{{ $u }}:00</option>
+                                @endif
+                            @endif
+                        @endfor
+                    </select>
+                    <br>
+                    <label for="untill">Tot</label>
+                    <select class="untill" name="untill[]">
+                        @for($u=10; $u <= 21; $u++)
+                            @if($status == 0)
+                                @if($u == 10)
+                                    <option disabled selected>-- select --</option>
+                                @endif
+                                <option value="{{ $u }}">{{ $u }}:00</option>
+                            @else
+                                @if($u == 10)
+                                <option value="{{ $end }}" selected>{{ $end }}:00</option>
+                                @endif
+                                @if($end != $u)
+                                <option value="{{ $u }}">{{ $u }}:00</option>
+                                @endif
+                            @endif
+                        @endfor
+                    </select>
+                </td>
+            @endfor
+        </tr>
+        @endfor
+    </table>
 	</form>
 </div>
 
-
+<script type="text/javascript">
+    $('select.from').change(function(){
+        function postAvailability(planningid){
+                $.ajax({
+                  url: "beschikbaarheid",
+                  type: "POST",
+                  data: {_planningid: planningid,_start: $('select.from').val()},
+                  dataType: 'json'
+                }).success(function(data){
+            });
+        }
+    }
+</script>
 @stop

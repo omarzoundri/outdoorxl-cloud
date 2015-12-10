@@ -153,14 +153,14 @@ class HomeController extends Controller
  	{
 
 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
-		$status = false;
+		$status = 0;
 		
  		return view('availability', ['planning' => $planning, 'status' => $status]);
 
  	}
  	public function postAvailability(AddAvailability $request)
  	{
- 		for ($i=0; $i <= 27; $i++) { 
+ 		/*for ($i=0; $i <= 27; $i++) { 
 
  			$planning = new Planning;
 
@@ -178,7 +178,17 @@ class HomeController extends Controller
 			$planning->save();
  		}
 
- 		return redirect('beschikbaarheid');
+ 		return redirect('beschikbaarheid');*/
+
+ 		$planning_id = $request->_planningid;
+ 		$start = $request->_start;
+
+ 		DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->update(['from' => $start]);
+
+        return '{"result":"'.$start.'"}';
+
  	}
 
  	public function getScheduleEmployee()
