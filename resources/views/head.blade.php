@@ -45,11 +45,14 @@
             $.ajax({
               url: "medewerkers-inplannen",
               type: "POST",
-              data: {_planningid: planningid,_status: obj.value},
+              data: {
+                _planningid: planningid,
+                _status: obj.value
+            },
               dataType: 'json'
             }).success(function(data){
                 //Json checkt welke kleur een knop krijgt
-                if(data.result == 1){
+                if(parseInt(data.result) == 1){
                     $(obj).css("background-color","#00B16A");
                 }
                 else{

@@ -40,17 +40,18 @@
                     @endforeach
                 @endif
                 <td @if($status == 1)style="background: green; color: black"@else style="background: white"@endif>
-                    <input type="text" class="date" name="date[]" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}" readonly>
+                    <input type="text" class="date" id="date" name="date" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}"    >
                     <label for="day">Hele dag:</label>
-                    <input class="day" type="checkbox" @if($day == 1)checked="checked"@endif name="day[]" value="1"><br>
+                    <input class="day" type="checkbox" @if(isset($day) && $day == 1) checked="checked"@endif name="day[]" value="1"><br>
                     <label for="notavailable">Niet beschikbaar:</label>
-                    <input class="notavailable" type="checkbox" @if($unavailable == 1)checked="checked"@endif name="notavailable[]" value="1"><br>
+                    <input class="notavailable" type="checkbox" @if(isset($unavailable) && $unavailable == 1)checked="checked"@endif name="notavailable[]" value="1"><br>
                     <label for="from">Van</label>
-                    <select id="postAvailability({{ $plan->planning_id }})" class="from" name="from[]">
+                    <div class="time">
+                    <select class="from" id="from" name="from[]">
                         @for($u=10; $u <= 21; $u++)
                             @if($status == 0)
                                 @if($u == 10)
-                                    <option disabled selected>-- select --</option>
+                                    <option disabled value="0" selected>-- select --</option>
                                 @endif
                                 <option value="{{ $u }}">{{ $u }}:00</option>
                             @else
@@ -63,25 +64,28 @@
                             @endif
                         @endfor
                     </select>
-                    <br>
+                    </div>
+                    <br />
                     <label for="untill">Tot</label>
-                    <select class="untill" name="untill[]">
-                        @for($u=10; $u <= 21; $u++)
-                            @if($status == 0)
-                                @if($u == 10)
-                                    <option disabled selected>-- select --</option>
+                    <div class="time">
+                        <select class="untill" name="untill[]" id="untill">
+                            @for($u=10; $u <= 21; $u++)
+                                @if($status == 0)
+                                    @if($u == 10)
+                                        <option disabled value="0" selected>-- select --</option>
+                                    @endif
+                                    <option value="{{ $u }}">{{ $u }}:00</option>
+                                @else
+                                    @if($u == 10)
+                                    <option value="{{ $end }}" selected>{{ $end }}:00</option>
+                                    @endif
+                                    @if($end != $u)
+                                    <option value="{{ $u }}">{{ $u }}:00</option>
+                                    @endif
                                 @endif
-                                <option value="{{ $u }}">{{ $u }}:00</option>
-                            @else
-                                @if($u == 10)
-                                <option value="{{ $end }}" selected>{{ $end }}:00</option>
-                                @endif
-                                @if($end != $u)
-                                <option value="{{ $u }}">{{ $u }}:00</option>
-                                @endif
-                            @endif
-                        @endfor
-                    </select>
+                            @endfor
+                        </select>
+                    </div>
                 </td>
             @endfor
         </tr>
@@ -90,17 +94,35 @@
 	</form>
 </div>
 
-<script type="text/javascript">
-    $('select.from').change(function(){
-        function postAvailability(planningid){
-                $.ajax({
-                  url: "beschikbaarheid",
-                  type: "POST",
-                  data: {_planningid: planningid,_start: $('select.from').val()},
-                  dataType: 'json'
-                }).success(function(data){
+    <script type="text/javascript">
+        $(function() {
+            $('.responstable .time').change(function(e) {
+
+                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null) {
+
+                    $.ajax({
+                        url: "beschikbaarheid",
+                        type: "POST",
+                        data: {
+                            start: $(this).parent().find('select.from').val(),
+                            datex: $(this).parent().find('#date').val(),
+                            end: $(this).parent().find('select.untill').val()
+                        }, 
+                        dataType: 'json',
+                        context: $(this)
+                    }).done(function(data) {
+                        console.log(data)
+                        if(parseInt(data["status"]) == 1) { //success 
+                            this.closest('td').fadeIn(5000).css({
+                                'background' : '#00F900'
+                            });
+                        }
+                    }).error(function(e){
+                        console.log(e);
+                    });
+                    return;
+                }
             });
-        }
-    }
-</script>
+        });
+    </script>
 @stop

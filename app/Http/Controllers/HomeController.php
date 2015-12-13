@@ -179,51 +179,23 @@ class HomeController extends Controller
  	{
 
 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
-<<<<<<< HEAD
-		$status = 0;
-		
-=======
+
 		$status = false;
 
->>>>>>> 9f7b795ee6bec60aed399c0ba92134f5d8d3a405
  		return view('availability', ['planning' => $planning, 'status' => $status]);
 
  	}
  	public function postAvailability(AddAvailability $request)
  	{
-<<<<<<< HEAD
- 		/*for ($i=0; $i <= 27; $i++) { 
-=======
- 		for ($i=0; $i <= 27; $i++) {
->>>>>>> 9f7b795ee6bec60aed399c0ba92134f5d8d3a405
+		$planning = new Planning;
+		$planning->user_id = Auth::user()->id;
+		$planning->date = $request->datex;
 
- 			$planning = new Planning;
-
-			$planning->date = $request->date[$i];
-			if (isset($request->day[$i])) {
-				$planning->day = $request->day[$i];
-			}
-			if (isset($request->notavailable[$i])) {
-				$planning->unavailable = $request->notavailable[$i];
-			}
-			$planning->from = $request->from[$i];
-			$planning->untill = $request->untill[$i];
-			$planning->user_id = Auth::user()->id;
-
-			$planning->save();
- 		}
-
- 		return redirect('beschikbaarheid');*/
-
- 		$planning_id = $request->_planningid;
- 		$start = $request->_start;
-
- 		DB::table('planning')
-            ->where('planning_id', $planning_id)
-            ->update(['from' => $start]);
-
-        return '{"result":"'.$start.'"}';
-
+		$planning->from = $request->start;
+		$planning->untill = $request->end;
+		$planning->save();
+ 		
+ 		return response()->json(['status' => 1]);
  	}
 
  	public function getScheduleEmployee()
