@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Division, App\Planning, App\News, App\User;
-use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision;
+use App\Http\Requests\EditNieuws, App\Http\Requests\AddNieuws, App\Http\Requests, App\Http\Requests\AddDivision, App\Http\Requests\EditProfile;
 use App\Http\Requests\EditDivision, App\Http\Requests\AddEmployee, App\Http\Requests\EditEmployee;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddAvailability, App\Http\Requests\PostSchedule;
@@ -19,8 +19,28 @@ class HomeController extends Controller
 		$this->middleware('auth');
 		Date::setLocale('nl');
 	}
-	public function getEditProfile(){
-		return view('editprofile');
+	public function getEditProfile($id){
+		$users = User::findOrFail($id);
+		return view('editprofile', compact('users'));
+	}
+	public function postEditProfile($id, EditProfile $request){
+		$users = User::findOrFail($id);
+			if(bcrypt(Auth::user()->password) != $users->password){
+				return "nope";
+			} else {
+					$users->update($request->password());
+			}
+			/*$input = $request->all();
+			$password = bcrypt($request->oldpassword);
+			if ($password == Auth::user()->password) {
+
+				$input['password'] = Hash::make($input['password']);
+				$users = User::find($id);
+				$users->update($input);
+				return redirect('dashboard');
+			}*/
+		return view('editprofile', compact('users'));
+
 	}
 	public function dashboard()
 	{
@@ -159,6 +179,7 @@ class HomeController extends Controller
  	{
 
 		$planning = Planning::where('user_id', '=', Auth::user()->id)->get();
+
 		$status = false;
 
  		return view('availability', ['planning' => $planning, 'status' => $status]);
@@ -166,25 +187,15 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
- 		for ($i=0; $i <= 27; $i++) {
+		$planning = new Planning;
+		$planning->user_id = Auth::user()->id;
+		$planning->date = $request->datex;
 
- 			$planning = new Planning;
-
-			$planning->date = $request->date[$i];
-			if (isset($request->day[$i])) {
-				$planning->day = $request->day[$i];
-			}
-			if (isset($request->notavailable[$i])) {
-				$planning->unavailable = $request->notavailable[$i];
-			}
-			$planning->from = $request->from[$i];
-			$planning->untill = $request->untill[$i];
-			$planning->user_id = Auth::user()->id;
-
-			$planning->save();
- 		}
-
- 		return redirect('beschikbaarheid');
+		$planning->from = $request->start;
+		$planning->untill = $request->end;
+		$planning->save();
+ 		
+ 		return response()->json(['status' => 1]);
  	}
 
  	public function getScheduleEmployee()
@@ -201,7 +212,7 @@ class HomeController extends Controller
 
  	public function postScheduleEmployee(Request $request)
  	{
- 		//Ophalen aangeklikte id 
+ 		//Ophalen aangeklikte id
  		$planning_id = $request->_planningid;
  		//Ophalen aangespaste status van aangeklikte id
  		$status = $request->_status;
@@ -235,14 +246,3 @@ class HomeController extends Controller
  		
  	}
 }
-
-
-
-
-
-
-
-
-
-
-
