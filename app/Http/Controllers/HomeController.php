@@ -217,12 +217,22 @@ class HomeController extends Controller
 
  	public function getEditSchedule()
  	{
- 		
+ 		return view('editschedule');
  	}
 
  	public function postEditSchedule()
  	{
  		return redirect('editschedule');
+ 	}
+
+ 	public function getAddUrenMedewerker()
+ 	{
+ 		return view('dailyhours');
+ 	}
+
+ 	public function postAddUrenMedewerker()
+ 	{
+ 		
  	}
 }
 

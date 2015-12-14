@@ -57,6 +57,10 @@ Route::post('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeContro
 Route::get('beschikbaarheid', 'HomeController@getAvailability');
 Route::post('beschikbaarheid', 'HomeController@postAvailability');
 
+//daily hours
+Route::get('dagelijkseuren', 'HomeController@getAddUrenMedewerker');
+Route::post('dagelijkseuren', 'HomeController@postAddUrenMedewerker');
+
 //test environment
 Route::get('planning', 'EventController@calendar');
 Route::get('test', 'TestController@test');

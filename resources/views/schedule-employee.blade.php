@@ -9,6 +9,8 @@
     </ol>
 @stop
 
+@yield('custom.js')
+
 @section('content')
 <div class="box">
   <div class="box-header with-border">
