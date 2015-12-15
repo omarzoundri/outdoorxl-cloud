@@ -30,6 +30,7 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
+            <li><a href="/myschedule"><span><strong>Mijn Rooster</strong></span></a></li>
             <li><a href="/nieuws"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>

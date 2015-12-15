@@ -58,6 +58,17 @@ class HomeController extends Controller
 		$news = News::all();
     	return view('dashboard', ['news' => $news]);
 	}
+
+	public function viewRooster(){
+
+		$users = User::all();
+		$planning = DB::table('planning')->where('status', '=', 1)->get();
+		$monday = Carbon::now()->startofweek();
+	
+
+        return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
+	}
+
 	public function getNieuws($id){
 		$news = News::findOrFail($id);
 		return view('nieuws', compact('news'));
@@ -198,6 +209,7 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
+<<<<<<< HEAD
 		$planning = new Planning;
 		$planning->user_id = Auth::user()->id;
 		$planning->date = $request->datex;
@@ -206,6 +218,32 @@ class HomeController extends Controller
 		$planning->untill = $request->end;
 		$planning->save();
 
+=======
+		
+		if ($request->status == 1) {
+			DB::table('planning')
+	            ->where('planning_id', $request->planningid)
+	            ->update([
+	            	'from' => $request->start,
+	             	'untill' => $request->end,
+	             	'unavailable' => $request->unavailable,
+	             	'day' => $request->day
+	             ]);
+		}
+		else{
+			$planning = new Planning;
+			$planning->user_id = Auth::user()->id;
+
+			$planning->day = $request->day;
+			$planning->unavailable = $request->unavailable;
+			$planning->date = $request->datex;
+
+			$planning->from = $request->start;
+			$planning->untill = $request->end;
+			$planning->save();
+		}
+ 		
+>>>>>>> f61f9c4755017ca95db67e962ee3cf6637becf5f
  		return response()->json(['status' => 1]);
  	}
 
@@ -213,12 +251,13 @@ class HomeController extends Controller
  	{
  		$users = User::all();
  		$divisions = Division::all();
- 		$today = Carbon::today();
- 		$planning = Planning::where('date', '>=', Carbon::today())
- 						->where('date', '<=', Carbon::today()->addWeek())
+ 		$monday = Carbon::now()->startofweek();
+ 		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
+ 						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
  						->get();
 
-		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'today' => $today]);
+
+		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
  	}
 
  	public function postScheduleEmployee(Request $request)
