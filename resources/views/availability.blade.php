@@ -40,11 +40,17 @@
                     @endforeach
                 @endif
                 <td @if($status == 1)style="background: green; color: black"@else style="background: white"@endif>
-                    <input type="text" class="date" id="date" name="date" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}"    >
+                    <input type="text" class="date" id="date" name="date" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}">
+                    <input type="text" class="status" id="status" name="status" value="{{$status}}">
+                    <input type="text" class="planningid" id="planningid" name="planningid" value="@if($status == 1){{$plan->planning_id}}@endif">
                     <label for="day">Hele dag:</label>
-                    <input class="day" type="checkbox" @if(isset($day) && $day == 1) checked="checked"@endif name="day[]" value="1"><br>
+                    <div class="time">
+                        <input class="day" id="day" type="checkbox" @if(isset($day) && $day == 1) checked="checked"@endif name="day[]" value="1"><br>
+                    </div>
                     <label for="notavailable">Niet beschikbaar:</label>
-                    <input class="notavailable" type="checkbox" @if(isset($unavailable) && $unavailable == 1)checked="checked"@endif name="notavailable[]" value="1"><br>
+                    <div class="time">
+                        <input class="unavailable" id="unavailable" type="checkbox" @if(isset($unavailable) && $unavailable == 1)checked="checked"@endif name="unavailable[]" value="1"><br>
+                    </div>
                     <label for="from">Van</label>
                     <div class="time">
                     <select class="from" id="from" name="from[]">
@@ -98,12 +104,19 @@
         $(function() {
             $('.responstable .time').change(function(e) {
 
-                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null) {
+                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null || $(this).parent().find('#day').is(':checked') || $(this).parent().find('#unavailable').is(':checked')) {
+
+                    if ($(this).parent().find('#day').is(':checked')){ var day = 1;}else{var day = 0;}
+                    if ($(this).parent().find('#unavailable').is(':checked')){var unavailable = 1;}else{var unavailable = 0;}
 
                     $.ajax({
                         url: "beschikbaarheid",
                         type: "POST",
                         data: {
+                            status: $(this).parent().find('#status').val(),
+                            planningid: $(this).parent().find('#planningid').val(),
+                            day: day,
+                            unavailable: unavailable,
                             start: $(this).parent().find('select.from').val(),
                             datex: $(this).parent().find('#date').val(),
                             end: $(this).parent().find('select.untill').val()
