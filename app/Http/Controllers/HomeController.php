@@ -187,13 +187,29 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
-		$planning = new Planning;
-		$planning->user_id = Auth::user()->id;
-		$planning->date = $request->datex;
+		
+		if ($request->status == 1) {
+			DB::table('planning')
+	            ->where('planning_id', $request->planningid)
+	            ->update([
+	            	'from' => $request->start,
+	             	'untill' => $request->end,
+	             	'unavailable' => $request->unavailable,
+	             	'day' => $request->day
+	             ]);
+		}
+		else{
+			$planning = new Planning;
+			$planning->user_id = Auth::user()->id;
 
-		$planning->from = $request->start;
-		$planning->untill = $request->end;
-		$planning->save();
+			$planning->day = $request->day;
+			$planning->unavailable = $request->unavailable;
+			$planning->date = $request->datex;
+
+			$planning->from = $request->start;
+			$planning->untill = $request->end;
+			$planning->save();
+		}
  		
  		return response()->json(['status' => 1]);
  	}
