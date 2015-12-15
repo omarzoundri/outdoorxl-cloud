@@ -30,6 +30,7 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
+            <li><a href="/myschedule"><span><strong>Mijn Rooster</strong></span></a></li>
             <li><a href="/nieuws"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
@@ -46,13 +47,13 @@
             <li><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
             <li><a href="/planning-wijzigen"><span>Planning wijzigen</span></a></li>
             @endif
-<<<<<<< HEAD
+
             <li class="header">Dag Uren</li>
             <li><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
-=======
+
             <li class="header">Profiel</li>
             <li><a href="/editprofile/{!! Auth::user()->id !!}"><span>Profiel wijzigen</span></a></li>
->>>>>>> 35774cc2ff92b4c2c2cae9dd3f5faa78c1adbaad
+
             <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->
     </section>

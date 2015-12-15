@@ -27,6 +27,7 @@ Route::get('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeControll
 Route::post('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
 Route::get('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteNieuws']);
 Route::post('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteNieuws']);
+Route::get('myschedule', 'HomeController@viewRooster' );
 
 //employee
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);

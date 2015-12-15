@@ -47,6 +47,17 @@ class HomeController extends Controller
 		$news = News::all();
     	return view('dashboard', ['news' => $news]);
 	}
+
+	public function viewRooster(){
+
+		$users = User::all();
+		$planning = DB::table('planning')->where('status', '=', 1)->get();
+		$monday = Carbon::now()->startofweek();
+	
+
+        return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
+	}
+
 	public function getNieuws($id){
 		$news = News::findOrFail($id);
 		return view('nieuws', compact('news'));
@@ -202,12 +213,13 @@ class HomeController extends Controller
  	{
  		$users = User::all();
  		$divisions = Division::all();
- 		$today = Carbon::today();
- 		$planning = Planning::where('date', '>=', Carbon::today())
- 						->where('date', '<=', Carbon::today()->addWeek())
+ 		$monday = Carbon::now()->startofweek();
+ 		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
+ 						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
  						->get();
 
-		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'today' => $today]);
+
+		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
  	}
 
  	public function postScheduleEmployee(Request $request)
