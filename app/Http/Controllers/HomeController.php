@@ -24,13 +24,25 @@ class HomeController extends Controller
 		return view('editprofile', compact('users'));
 	}
 	public function postEditProfile($id, EditProfile $request){
+
 		$users = User::findOrFail($id);
+		$users->update($request->all());
+
+		
+		// 	DB::table('users')
+		// 					->where('email', 'Auth::user()->email')
+		// 					->value('email')
+		// 					->update([
+		// 						'email' => $request->email
+		// 					]);
+
+		/*
 			if(bcrypt(Auth::user()->password) != $users->password){
 				return "nope";
 			} else {
 					$users->update($request->password());
 			}
-			/*$input = $request->all();
+			$input = $request->all();
 			$password = bcrypt($request->oldpassword);
 			if ($password == Auth::user()->password) {
 
@@ -39,8 +51,7 @@ class HomeController extends Controller
 				$users->update($input);
 				return redirect('dashboard');
 			}*/
-		return view('editprofile', compact('users'));
-
+		return view('editprofile', compact('users', 'email'));
 	}
 	public function dashboard()
 	{
@@ -194,7 +205,7 @@ class HomeController extends Controller
 		$planning->from = $request->start;
 		$planning->untill = $request->end;
 		$planning->save();
- 		
+
  		return response()->json(['status' => 1]);
  	}
 
@@ -243,6 +254,6 @@ class HomeController extends Controller
 
  	public function postAddUrenMedewerker()
  	{
- 		
+
  	}
 }
