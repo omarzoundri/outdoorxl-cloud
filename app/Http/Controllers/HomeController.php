@@ -48,23 +48,26 @@ class HomeController extends Controller
     	return view('dashboard', ['news' => $news]);
 	}
 
-	public function viewRooster(){
-
-		$users = User::all();
-		$planning = DB::table('planning')->where('status', '=', 1)->get();
+	public function viewRooster()
+	{
+		$users = User::where('id', '=', Auth::user()->id)->get();
+		$planning = Planning::all();
 		$monday = Carbon::now()->startofweek();
 	
-
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
 	}
 
-	public function getNieuws($id){
+	public function getNieuws($id)
+	{
 		$news = News::findOrFail($id);
 		return view('nieuws', compact('news'));
 	}
-	public function getAddNieuws(){
+
+	public function getAddNieuws()
+	{
 		return view('addnieuws');
 	}
+
  	public function postAddNieuws(AddNieuws $request)
  	{
  		$input = $request->all();
@@ -271,6 +274,15 @@ class HomeController extends Controller
 
  	public function postAddUrenMedewerker()
  	{
- 		
+
  	}
 }
+
+
+
+
+
+
+
+
+
