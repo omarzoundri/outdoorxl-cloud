@@ -24,13 +24,25 @@ class HomeController extends Controller
 		return view('editprofile', compact('users'));
 	}
 	public function postEditProfile($id, EditProfile $request){
+
 		$users = User::findOrFail($id);
+		$users->update($request->all());
+
+		
+		// 	DB::table('users')
+		// 					->where('email', 'Auth::user()->email')
+		// 					->value('email')
+		// 					->update([
+		// 						'email' => $request->email
+		// 					]);
+
+		/*
 			if(bcrypt(Auth::user()->password) != $users->password){
 				return "nope";
 			} else {
 					$users->update($request->password());
 			}
-			/*$input = $request->all();
+			$input = $request->all();
 			$password = bcrypt($request->oldpassword);
 			if ($password == Auth::user()->password) {
 
@@ -39,8 +51,7 @@ class HomeController extends Controller
 				$users->update($input);
 				return redirect('dashboard');
 			}*/
-		return view('editprofile', compact('users'));
-
+		return view('editprofile', compact('users', 'email'));
 	}
 	public function dashboard()
 	{
@@ -201,6 +212,16 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
+<<<<<<< HEAD
+		$planning = new Planning;
+		$planning->user_id = Auth::user()->id;
+		$planning->date = $request->datex;
+
+		$planning->from = $request->start;
+		$planning->untill = $request->end;
+		$planning->save();
+
+=======
 		
 		if ($request->status == 1) {
 			DB::table('planning')
@@ -225,6 +246,7 @@ class HomeController extends Controller
 			$planning->save();
 		}
  		
+>>>>>>> f61f9c4755017ca95db67e962ee3cf6637becf5f
  		return response()->json(['status' => 1]);
  	}
 

@@ -25,6 +25,7 @@ class EditProfile extends Request
     {
         return [
             'email' => 'email',
+            'password' => 'password'
         ];
     }
 }
