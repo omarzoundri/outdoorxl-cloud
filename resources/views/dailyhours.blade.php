@@ -60,6 +60,7 @@
 		            <option value="30">30 Minuten</option>
 		            <option value="45">45 Minuten</option>
 		            <option value="60">60 Minuten</option>
+		            <option value="75">75 Minuten</option>
 		          </select>
 		      </div>
 		    </div>
@@ -73,7 +74,7 @@
 						 @if($u == 9)
 						  <option disabled selected>Selecteer Eindtijd </option>
 						 @endif
-						 @for($m=0; $m < 4; $m++)
+						 @for($m=0; $m < 5; $m++)
 						 	@if($m == 0){{--*/ $minutes = 00; /*--}} @endif
 						 	@if($m == 1){{--*/ $minutes = 15; /*--}} @endif
 						 	@if($m == 2){{--*/ $minutes = 30; /*--}} @endif
@@ -81,7 +82,7 @@
 						 	<option value="{{ $u }}:{{ $minutes }}">{{ $u }}:{{ $minutes }}@if($m == 0)0 @endif</option>
 						 @endfor
 					@endfor
-					<option value="22:0">22:00</option>
+
 		          </select>
 		      </div>
 		    </div>

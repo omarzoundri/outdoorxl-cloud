@@ -24,13 +24,25 @@ class HomeController extends Controller
 		return view('editprofile', compact('users'));
 	}
 	public function postEditProfile($id, EditProfile $request){
+
 		$users = User::findOrFail($id);
+		$users->update($request->all());
+
+		
+		// 	DB::table('users')
+		// 					->where('email', 'Auth::user()->email')
+		// 					->value('email')
+		// 					->update([
+		// 						'email' => $request->email
+		// 					]);
+
+		/*
 			if(bcrypt(Auth::user()->password) != $users->password){
 				return "nope";
 			} else {
 					$users->update($request->password());
 			}
-			/*$input = $request->all();
+			$input = $request->all();
 			$password = bcrypt($request->oldpassword);
 			if ($password == Auth::user()->password) {
 
@@ -39,21 +51,34 @@ class HomeController extends Controller
 				$users->update($input);
 				return redirect('dashboard');
 			}*/
-		return view('editprofile', compact('users'));
-
+		return view('editprofile', compact('users', 'email'));
 	}
 	public function dashboard()
 	{
 		$news = News::all();
     	return view('dashboard', ['news' => $news]);
 	}
-	public function getNieuws($id){
+
+	public function viewRooster()
+	{
+		$users = User::where('id', '=', Auth::user()->id)->get();
+		$planning = Planning::all();
+		$monday = Carbon::now()->startofweek();
+	
+        return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
+	}
+
+	public function getNieuws($id)
+	{
 		$news = News::findOrFail($id);
 		return view('nieuws', compact('news'));
 	}
-	public function getAddNieuws(){
+
+	public function getAddNieuws()
+	{
 		return view('addnieuws');
 	}
+
  	public function postAddNieuws(AddNieuws $request)
  	{
  		$input = $request->all();
@@ -175,6 +200,7 @@ class HomeController extends Controller
 
 		return redirect('afdelingen');
  	}
+ 	
  	public function getAvailability()
  	{
 
@@ -187,6 +213,16 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
+
+		$planning = new Planning;
+		$planning->user_id = Auth::user()->id;
+		$planning->date = $request->datex;
+
+		$planning->from = $request->start;
+		$planning->untill = $request->end;
+		$planning->save();
+
+
 		
 		if ($request->status == 1) {
 			if ($request->datename === "Maandag" || $request->datename === "Dinsdag" || $request->datename === "Woensdag" || $request->datename === "Donderdag" || $request->datename === "Zaterdag") {
@@ -246,12 +282,13 @@ class HomeController extends Controller
  	{
  		$users = User::all();
  		$divisions = Division::all();
- 		$today = Carbon::today();
- 		$planning = Planning::where('date', '>=', Carbon::today())
- 						->where('date', '<=', Carbon::today()->addWeek())
+ 		$monday = Carbon::now()->startofweek();
+ 		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
+ 						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
  						->get();
 
-		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'today' => $today]);
+
+		return view('schedule-employee', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
  	}
 
  	public function postScheduleEmployee(Request $request)
@@ -270,16 +307,6 @@ class HomeController extends Controller
  		return '{"result":"'.$status.'"}';
  	}
 
- 	public function getEditSchedule()
- 	{
- 		return view('editschedule');
- 	}
-
- 	public function postEditSchedule()
- 	{
- 		return redirect('editschedule');
- 	}
-
  	public function getAddUrenMedewerker()
  	{
  		return view('dailyhours');
@@ -290,3 +317,12 @@ class HomeController extends Controller
  		
  	}
 }
+
+
+
+
+
+
+
+
+

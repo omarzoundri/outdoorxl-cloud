@@ -27,6 +27,7 @@ Route::get('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeControll
 Route::post('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
 Route::get('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteNieuws']);
 Route::post('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteNieuws']);
+Route::get('myschedule', 'HomeController@viewRooster' );
 
 //employee
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
@@ -50,9 +51,6 @@ Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeCon
 Route::get('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@getScheduleEmployee']);
 Route::post('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@postScheduleEmployee']);
 
-// scheduling
-Route::get('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@getEditSchedule']);
-Route::post('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@postEditSchedule']);
 
 //availability
 Route::get('beschikbaarheid', 'HomeController@getAvailability');
