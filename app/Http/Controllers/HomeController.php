@@ -189,6 +189,18 @@ class HomeController extends Controller
  	{
 		
 		if ($request->status == 1) {
+			if ($request->datename === "Maandag" || $request->datename === "Dinsdag" || $request->datename === "Woensdag" || $request->datename === "Donderdag" || $request->datename === "Zaterdag") {
+				$request->start = 10;
+				$request->end = 18;
+			}
+			if ($request->datename === "Vrijdag") {
+				$request->start = 10;
+				$request->end = 21;
+			}
+			if($request->datename === "Zondag") {
+				$request->start = 12;
+				$request->end = 17;
+			}
 			DB::table('planning')
 	            ->where('planning_id', $request->planningid)
 	            ->update([
@@ -204,10 +216,26 @@ class HomeController extends Controller
 
 			$planning->day = $request->day;
 			$planning->unavailable = $request->unavailable;
+
 			$planning->date = $request->datex;
 
 			$planning->from = $request->start;
 			$planning->untill = $request->end;
+
+			if ($request->day == 1){
+				if ($request->datename === "Maandag" || $request->datename === "Dinsdag" || $request->datename === "Woensdag" || $request->datename === "Donderdag" || $request->datename === "Zaterdag") {
+					$planning->from = 10;
+					$planning->untill = 18;
+				}
+				if ($request->datename === "Vrijdag") {
+					$planning->from = 10;
+					$planning->untill = 21;
+				}
+				if($request->datename === "Zondag") {
+					$planning->from = 12;
+					$planning->untill = 16.30;
+				}
+			}
 			$planning->save();
 		}
  		

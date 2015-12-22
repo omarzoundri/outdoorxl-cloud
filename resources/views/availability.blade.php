@@ -41,6 +41,7 @@
                 @endif
                 <td @if($status == 1)style="background: green; color: black"@else style="background: white"@endif>
                     <input type="text" class="date" id="date" name="date" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}">
+                    <input type="text" class="datename" id="datename" name="datename" value="{{Date::parse()->addDay($i)->format('l')}}">
                     <input type="text" class="status" id="status" name="status" value="{{$status}}">
                     <input type="text" class="planningid" id="planningid" name="planningid" value="@if($status == 1){{$plan->planning_id}}@endif">
                     <label for="day">Hele dag:</label>
@@ -104,11 +105,10 @@
         $(function() {
             $('.responstable .time').change(function(e) {
 
-                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null || $(this).parent().find('#day').is(':checked') || $(this).parent().find('#unavailable').is(':checked')) {
+                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null && $(this).parent().find('select.from').val() < $(this).parent().find('select.untill').val() || $(this).parent().find('#day').is(':checked') || $(this).parent().find('#unavailable').is(':checked')) {
 
                     if ($(this).parent().find('#day').is(':checked')){ var day = 1;}else{var day = 0;}
                     if ($(this).parent().find('#unavailable').is(':checked')){var unavailable = 1;}else{var unavailable = 0;}
-
                     $.ajax({
                         url: "beschikbaarheid",
                         type: "POST",
@@ -119,7 +119,8 @@
                             unavailable: unavailable,
                             start: $(this).parent().find('select.from').val(),
                             datex: $(this).parent().find('#date').val(),
-                            end: $(this).parent().find('select.untill').val()
+                            end: $(this).parent().find('select.untill').val(),
+                            datename: $(this).parent().find('#datename').val()
                         }, 
                         dataType: 'json',
                         context: $(this)

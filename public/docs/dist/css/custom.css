@@ -101,7 +101,7 @@ textarea{
   color: #FFF;
   padding: 1em;
 }
-td input.date, td input.status, td input.planningid{
+td input.date, td input.status, td input.planningid, td input.datename{
 	display: none;
 }
 .day,.notavailable,.from,.untill{
