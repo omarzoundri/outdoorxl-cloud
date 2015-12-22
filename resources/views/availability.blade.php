@@ -105,7 +105,7 @@
         $(function() {
             $('.responstable .time').change(function(e) {
 
-                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null && $(this).parent().find('select.from').val() < $(this).parent().find('select.untill').val() || $(this).parent().find('#day').is(':checked') || $(this).parent().find('#unavailable').is(':checked')) {
+                if ($(this).parent().find('select.from').val() !== null && $(this).parent().find('select.untill').val() !== null /*&& $(this).parent().find('select.from').val() < $(this).parent().find('select.untill').val()*/ || $(this).parent().find('#day').is(':checked') || $(this).parent().find('#unavailable').is(':checked')) {
 
                     if ($(this).parent().find('#day').is(':checked')){ var day = 1;}else{var day = 0;}
                     if ($(this).parent().find('#unavailable').is(':checked')){var unavailable = 1;}else{var unavailable = 0;}

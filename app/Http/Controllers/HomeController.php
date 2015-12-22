@@ -55,7 +55,9 @@ class HomeController extends Controller
 	}
 	public function dashboard()
 	{
-		$news = News::all();
+		$news = DB::table('news')
+                ->orderBy('created_at', 'desc')
+                ->get();
     	return view('dashboard', ['news' => $news]);
 	}
 
@@ -67,13 +69,6 @@ class HomeController extends Controller
 	
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
 	}
-
-	public function getNieuws($id)
-	{
-		$news = News::findOrFail($id);
-		return view('nieuws', compact('news'));
-	}
-
 	public function getAddNieuws()
 	{
 		return view('addnieuws');
@@ -220,7 +215,6 @@ class HomeController extends Controller
 
 		$planning->from = $request->start;
 		$planning->untill = $request->end;
-		$planning->save();
 
 
 		
