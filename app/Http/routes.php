@@ -51,9 +51,6 @@ Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeCon
 Route::get('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@getScheduleEmployee']);
 Route::post('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@postScheduleEmployee']);
 
-// scheduling
-Route::get('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@getEditSchedule']);
-Route::post('planning-wijzigen', ['middleware' => 'admin', 'uses' => 'HomeController@postEditSchedule']);
 
 //availability
 Route::get('beschikbaarheid', 'HomeController@getAvailability');

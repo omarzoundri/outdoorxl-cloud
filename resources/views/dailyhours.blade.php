@@ -82,7 +82,7 @@
 						 	<option value="{{ $u }}:{{ $minutes }}">{{ $u }}:{{ $minutes }}@if($m == 0)0 @endif</option>
 						 @endfor
 					@endfor
-					<option value="22:0">22:00</option>
+
 		          </select>
 		      </div>
 		    </div>

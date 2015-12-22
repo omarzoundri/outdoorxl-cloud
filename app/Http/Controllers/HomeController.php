@@ -200,6 +200,7 @@ class HomeController extends Controller
 
 		return redirect('afdelingen');
  	}
+ 	
  	public function getAvailability()
  	{
 
@@ -212,7 +213,7 @@ class HomeController extends Controller
  	}
  	public function postAvailability(AddAvailability $request)
  	{
-<<<<<<< HEAD
+
 		$planning = new Planning;
 		$planning->user_id = Auth::user()->id;
 		$planning->date = $request->datex;
@@ -221,7 +222,7 @@ class HomeController extends Controller
 		$planning->untill = $request->end;
 		$planning->save();
 
-=======
+
 		
 		if ($request->status == 1) {
 			DB::table('planning')
@@ -246,7 +247,6 @@ class HomeController extends Controller
 			$planning->save();
 		}
  		
->>>>>>> f61f9c4755017ca95db67e962ee3cf6637becf5f
  		return response()->json(['status' => 1]);
  	}
 
@@ -279,16 +279,6 @@ class HomeController extends Controller
  		return '{"result":"'.$status.'"}';
  	}
 
- 	public function getEditSchedule()
- 	{
- 		return view('editschedule');
- 	}
-
- 	public function postEditSchedule()
- 	{
- 		return redirect('editschedule');
- 	}
-
  	public function getAddUrenMedewerker()
  	{
  		return view('dailyhours');
@@ -296,7 +286,7 @@ class HomeController extends Controller
 
  	public function postAddUrenMedewerker()
  	{
-
+ 		
  	}
 }
 

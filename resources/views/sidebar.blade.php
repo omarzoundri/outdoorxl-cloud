@@ -45,7 +45,6 @@
             <li><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
-            <li><a href="/planning-wijzigen"><span>Planning wijzigen</span></a></li>
             @endif
 
             <li class="header">Dag Uren</li>
