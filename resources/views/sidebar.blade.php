@@ -54,7 +54,7 @@
             <li id="dagelijkseuren"><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
 
             <li class="header">Profiel</li>
-            <li id="editprofile/{!! Auth::user()->id !!}"><a href="/editprofile/{!! Auth::user()->id !!}"><span>Profiel wijzigen</span></a></li>
+            <li id="editprofile"><a href="/editprofile"><span>Profiel wijzigen</span></a></li>
 
             <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->

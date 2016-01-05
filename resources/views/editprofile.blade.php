@@ -29,7 +29,7 @@
     <div class="form-group">
       <label for="division" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-10">
-          <input type="email" class="form-control" name="email" placeholder="{{ $users->email }}">
+          <input type="email" class="form-control" name="email" placeholder="{{ $user->email }}">
         </div>
     </div>
     <hr>

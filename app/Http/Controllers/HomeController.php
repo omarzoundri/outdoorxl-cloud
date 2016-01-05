@@ -19,48 +19,25 @@ class HomeController extends Controller
 		$this->middleware('auth');
 		Date::setLocale('nl');
 	}
-	public function getEditProfile($id){
-		$users = User::findOrFail($id);
-		return view('editprofile', compact('users'));
+	public function getEditProfile(){
+		$user = Auth::user();
+		return view('editprofile', compact('user'));
 	}
-	public function postEditProfile($id, EditProfile $request){
+	public function postEditProfile(EditProfile $request){
 
-				$users = User::findOrFail($id);
-				if ($request->email != null){
-					$users->email = $request->email;
-					$users->save();
-				}
-				if ($request->confirmpassword != null){
-					$users->password = $request->password;
-					$users->save();
-				}
+		$user = Auth::user();
+		if ($request->email != null){
+			$user->email = $request->email;
+			$user->save();
+		}
+		if (Hash::check($request->oldpassword, $user->password)) {
+			if($request->confirmpassword == $request->newpassword && $request->newpassword != null){
+				$user->password = $request->newpassword;
+				$user->save();
+			}
+		}
 
-				// $users->update($request->all());
-
-
-				// 	DB::table('users')
-				// 					->where('email', 'Auth::user()->email')
-				// 					->value('email')
-				// 					->update([
-				// 						'email' => $request->email
-				// 					]);
-
-				/*
-					if(bcrypt(Auth::user()->password) != $users->password){
-						return "nope";
-					} else {
-							$users->update($request->password());
-					}
-					$input = $request->all();
-					$password = bcrypt($request->oldpassword);
-					if ($password == Auth::user()->password) {
-
-						$input['password'] = Hash::make($input['password']);
-						$users = User::find($id);
-						$users->update($input);
-						return redirect('dashboard');
-					}*/
-		return view('editprofile', compact('users', 'email'));
+		return view('editprofile', compact('user', 'email'));
 	}
 	public function dashboard()
 	{
