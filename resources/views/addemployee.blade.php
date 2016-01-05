@@ -53,10 +53,9 @@
 	      <label for="division" class="col-sm-2 control-label">Afdeling</label>
 	      	<div class="col-sm-10">
 	          <select class="form-control" name="division_id">
-				<option value="0">Kassa</option>
-				<option value="1">Schoenen</option>
-				<option value="2">Tenten</option>
-				<option value="3">Wintersport</option>
+	          	@foreach ($divisions as $division)
+					<option value="{{$division->division_id}}">{{$division->division}}</option>
+				@endforeach
 	          </select>
 	      </div>
 	    </div>

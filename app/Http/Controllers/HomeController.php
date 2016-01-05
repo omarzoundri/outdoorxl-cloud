@@ -70,7 +70,7 @@ class HomeController extends Controller
     	return view('dashboard', ['news' => $news]);
 	}
 
-	public function viewRooster()
+	public function viewRoster()
 	{
 		$users = User::where('id', '=', Auth::user()->id)->get();
 		$planning = Planning::all();
@@ -78,31 +78,31 @@ class HomeController extends Controller
 
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
 	}
-	public function getAddNieuws()
+	public function getAddNews()
 	{
 		return view('addnieuws');
 	}
 
- 	public function postAddNieuws(AddNieuws $request)
+ 	public function postAddNews(AddNieuws $request)
  	{
  		$input = $request->all();
 		News::create($input);
 		return redirect('nieuws');
  	}
-	public function getEditNieuws($id){
+	public function getEditNews($id){
 		$news = News::findOrFail($id);
 		return view('editnieuws', compact('news'));
 	}
-	public function postEditNieuws($id, EditNieuws $request){
+	public function postEditNews($id, EditNieuws $request){
 		$news = News::findOrFail($id);
 		$news->update($request->all());
 		return redirect('nieuws');
 	}
-	public function getDeleteNieuws($id){
+	public function getDeleteNews($id){
 		$news = News::findOrFail($id);
 		return view('deletenieuws', compact('news'));
 	}
-	public function postDeleteNieuws($id){
+	public function postDeleteNews($id){
 		$news = News::findOrFail($id);
 		$news->delete(News::all());
 		return redirect('nieuws');
@@ -116,7 +116,9 @@ class HomeController extends Controller
 
 	public function getAddEmployee()
 	{
-    	return view('add');
+		$divisions = Division::all();
+
+    	return view('addemployee', ['divisions' => $divisions]);
 	}
 
 	public function postAddEmployee(AddEmployee $request)
@@ -132,8 +134,11 @@ class HomeController extends Controller
 	public function getEditEmployee($id)
 	{
 		$user = User::findOrFail($id);
+		$currentdivision = Division::where('division_id', '=', $user->division_id)
+							->get();
+		$divisions = Division::all();
 
-		return view('editemployee', ['user' => $user]);
+		return view('editemployee', ['user' => $user, 'divisions' => $divisions, 'currentdivision' => $currentdivision]);
 	}
 
 	public function postEditEmployee($id, EditEmployee $request)
@@ -310,13 +315,26 @@ class HomeController extends Controller
  		return '{"result":"'.$status.'"}';
  	}
 
- 	public function getAddUrenMedewerker()
+ 	public function getAddHoursEmployee()
  	{
  		return view('dailyhours');
  	}
 
- 	public function postAddUrenMedewerker()
+ 	public function postAddHoursEmployee()
  	{
 
+ 	}
+ 	public function getDailyRoster(){
+
+ 		$users = User::all();
+ 		$divisions = Division::all();
+ 		$monday = Carbon::now()->startofweek();
+ 		$planning = Planning::where('date', '=', Carbon::today())
+ 						->get();
+
+
+		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+
+ 		
  	}
 }

@@ -38,6 +38,7 @@
             <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
 
             <li class="header">Beheer</li>
+            <li><a href="/dagelijkse-rooster"><span>Rooster</span></a></li>
             <li><a href="/medewerkers"><span>Medewerkers</span></a></li>
             <li><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
             <li><a href="/afdelingen"><span>Afdelingen</span></a></li>

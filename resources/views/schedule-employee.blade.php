@@ -65,7 +65,7 @@
                 @endforeach
 
                 @if($planningfound == false)
-                    <td></td>
+                    <td>x</td>
                 @else
                     {{--*/ $planningfound = false /*--}}
                 @endif

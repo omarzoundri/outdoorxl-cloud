@@ -21,116 +21,39 @@
     <div class="box-body">
     <table class="pure-table">
     <thead>
-        <tr>
-            @for($i=0; $i < 7; $i++)
-                <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
-            @endfor
-        </tr>
-        {{--*/ $planningfound = false /*--}}
-        @foreach ($users as $user)
-        <tr>
-            @for($i=0; $i < 7; $i++)
-                @foreach($planning as $plan)
-                    @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
-                        {{--*/ $planningfound = true /*--}}
-                        <td>
-                            <div class="mijnrooster">
-                                    {{$plan->from}} - {{ $plan->untill}}
-                            </div>
-                        </td>
-                    @endif
-                @endforeach
-
-                @if($planningfound == false)
-                    <td></td>
-                @else
-                    {{--*/ $planningfound = false /*--}}
-                @endif
-            @endfor 
-            </tr>
-        @endforeach
-
-        <tr>
-            @for($i=7; $i < 14; $i++)
-                <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
-            @endfor
-        </tr>
+        @for($x=0; $x <= 3; $x++)
+            {{--*/ $w = 7 * $x /*--}} <!-- $w is wanneer het begin in dagen is 7 * (aantal weken) = aantal dagen. -->
+            {{--*/ $k = $w + 7 /*--}} <!-- $k laat zien hoeveel dagen er in een week zitten en ervoor zorgt dat de loop per row 7 dagen ophaald.-->
             <tr>
-            @for($i=7; $i < 14; $i++)
-                @foreach($planning as $plan)
-                    @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
-                        {{--*/ $planningfound = true /*--}}
-                        <td>
-                            <div class="mijnrooster">
-                                    {{$plan->from}} - {{ $plan->untill}}
-                            </div>
-                        </td>
-                    @endif
-                @endforeach
-
-                @if($planningfound == false)
-                    <td></td>
-                @else
-                    {{--*/ $planningfound = false /*--}}
-                @endif
-            @endfor 
+                @for($i=$w; $i < $k; $i++)
+                    <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
+                @endfor
             </tr>
-
-        <tr>
-            @for($i=14; $i < 21; $i++)
-                <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
-            @endfor
-        </tr>
-
+            {{--*/ $planningfound = false /*--}}
+            @foreach ($users as $user)
             <tr>
-            @for($i=14; $i < 21; $i++)
-                @foreach($planning as $plan)
-                    @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
-                        {{--*/ $planningfound = true /*--}}
-                        <td>
-                            <div class="mijnrooster">
-                                    {{$plan->from}} - {{ $plan->untill}}
-                            </div>
-                        </td>
+                @for($i=$w; $i < $k; $i++)
+                    @foreach($planning as $plan)
+                        @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
+                            {{--*/ $planningfound = true /*--}}
+                            <td>
+                                <div class="mijnrooster">
+                                        {{$plan->from}} - {{ $plan->untill}}
+                                </div>
+                            </td>
+                        @endif
+                    @endforeach
+
+                    @if($planningfound == false)
+                        <td>x</td>
+                    @else
+                        {{--*/ $planningfound = false /*--}}
                     @endif
-                @endforeach
-
-                @if($planningfound == false)
-                    <td></td>
-                @else
-                    {{--*/ $planningfound = false /*--}}
-                @endif
-            @endfor 
-
-            </tr>
-
-        <tr>
-            @for($i=21; $i < 28; $i++)
-                <th>{{Date::parse($monday)->addDay($i)->format('l d F')}}</th>
-            @endfor
-        </tr>
-            <tr>
-            @for($i=21; $i < 28; $i++)
-                @foreach($planning as $plan)
-                    @if(($user->id == $plan->user_id) && (Date::parse($monday)->addDay($i)->format('Y-m-d') ==  $plan->date))
-                        {{--*/ $planningfound = true /*--}}
-                        <td>
-                            <div class="mijnrooster">
-                                    {{$plan->from}} - {{ $plan->untill}}
-                            </div>
-                        </td>
-                    @endif
-                @endforeach
-
-                @if($planningfound == false)
-                    <td></td>
-                @else
-                    {{--*/ $planningfound = false /*--}}
-                @endif
-            @endfor 
-            </tr>
-    </thead>
-<tbody>     
+                @endfor 
+                </tr>
+            @endforeach
+        @endfor
+<tbody> 
 
   </div><!-- /.box-body -->
 </div><!-- /.box -->
