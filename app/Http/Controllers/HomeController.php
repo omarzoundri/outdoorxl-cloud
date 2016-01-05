@@ -25,32 +25,41 @@ class HomeController extends Controller
 	}
 	public function postEditProfile($id, EditProfile $request){
 
-		$users = User::findOrFail($id);
-		$users->update($request->all());
+				$users = User::findOrFail($id);
+				if ($request->email != null){
+					$users->email = $request->email;
+					$users->save();
+				}
+				if ($request->confirmpassword != null){
+					$users->password = $request->password;
+					$users->save();
+				}
 
-		
-		// 	DB::table('users')
-		// 					->where('email', 'Auth::user()->email')
-		// 					->value('email')
-		// 					->update([
-		// 						'email' => $request->email
-		// 					]);
+				// $users->update($request->all());
 
-		/*
-			if(bcrypt(Auth::user()->password) != $users->password){
-				return "nope";
-			} else {
-					$users->update($request->password());
-			}
-			$input = $request->all();
-			$password = bcrypt($request->oldpassword);
-			if ($password == Auth::user()->password) {
 
-				$input['password'] = Hash::make($input['password']);
-				$users = User::find($id);
-				$users->update($input);
-				return redirect('dashboard');
-			}*/
+				// 	DB::table('users')
+				// 					->where('email', 'Auth::user()->email')
+				// 					->value('email')
+				// 					->update([
+				// 						'email' => $request->email
+				// 					]);
+
+				/*
+					if(bcrypt(Auth::user()->password) != $users->password){
+						return "nope";
+					} else {
+							$users->update($request->password());
+					}
+					$input = $request->all();
+					$password = bcrypt($request->oldpassword);
+					if ($password == Auth::user()->password) {
+
+						$input['password'] = Hash::make($input['password']);
+						$users = User::find($id);
+						$users->update($input);
+						return redirect('dashboard');
+					}*/
 		return view('editprofile', compact('users', 'email'));
 	}
 	public function dashboard()
@@ -66,7 +75,7 @@ class HomeController extends Controller
 		$users = User::where('id', '=', Auth::user()->id)->get();
 		$planning = Planning::all();
 		$monday = Carbon::now()->startofweek();
-	
+
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
 	}
 	public function getAddNieuws()
@@ -195,7 +204,7 @@ class HomeController extends Controller
 
 		return redirect('afdelingen');
  	}
- 	
+
  	public function getAvailability()
  	{
 
@@ -217,7 +226,7 @@ class HomeController extends Controller
 		$planning->untill = $request->end;
 
 
-		
+
 		if ($request->status == 1) {
 			if ($request->datename === "Maandag" || $request->datename === "Dinsdag" || $request->datename === "Woensdag" || $request->datename === "Donderdag" || $request->datename === "Zaterdag") {
 				$request->start = 10;
@@ -268,7 +277,7 @@ class HomeController extends Controller
 			}
 			$planning->save();
 		}
- 		
+
  		return response()->json(['status' => 1]);
  	}
 
@@ -308,15 +317,6 @@ class HomeController extends Controller
 
  	public function postAddUrenMedewerker()
  	{
- 		
+
  	}
 }
-
-
-
-
-
-
-
-
-

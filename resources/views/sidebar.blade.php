@@ -1,3 +1,5 @@
+
+
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
 
@@ -30,7 +32,7 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
-            <li><a href="/myschedule"><span><strong>Mijn Rooster</strong></span></a></li>
+            <li class="active"><a href="/myschedule">Mijn Rooster</a></li>
             <li><a href="/nieuws"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
@@ -55,6 +57,12 @@
 
             <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->
+        <script>
+        $("ul li a").on('click', function(e){
+           e.preventdefault();
+           $(this).closest('li').addClass('active').siblings().removeClass('active')
+        });
+        </script>
     </section>
     <!-- /.sidebar -->
 </aside>

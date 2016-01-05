@@ -10,7 +10,7 @@
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme styles -->
     <link href="{{ asset("/docs/dist/css/AdminLTE.css")}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("/docs/dist/css/skins/skin-green.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset("/docs/dist/css/skins/skin-green.css")}}" rel="stylesheet" type="text/css" />
     <!-- Custom CSS3 -->
     <link href="{{ asset("/docs/dist/css/custom.css")}}" rel="stylesheet" type="text/css" />
 
@@ -23,7 +23,7 @@
     <script src='/fullcalendar/dist/lang/nl.js'></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 
-   
+
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
