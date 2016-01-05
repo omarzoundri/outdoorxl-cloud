@@ -32,36 +32,43 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
-            <li class="active"><a href="/myschedule">Mijn Rooster</a></li>
-            <li><a href="/nieuws"><span>Nieuws</span></a></li>
+            <li id="myschedule"><a href="/myschedule">Mijn Rooster</a></li>
+            <li id="nieuws"><a href="/nieuws"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
-            <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
+            <li id="nieuws-toevoegen"><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
 
             <li class="header">Beheer</li>
-            <li><a href="/dagelijkse-rooster"><span>Rooster</span></a></li>
-            <li><a href="/medewerkers"><span>Medewerkers</span></a></li>
-            <li><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
-            <li><a href="/afdelingen"><span>Afdelingen</span></a></li>
-            <li><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
+            <li id="dagelijkse-rooster"><a href="/dagelijkse-rooster"><span>Rooster</span></a></li>
+            <li id="medewerkers"><a href="/medewerkers"><span>Medewerkers</span></a></li>
+            <li id="medewerker-toevoegen"><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
+            <li id="afdelingen"><a href="/afdelingen"><span>Afdelingen</span></a></li>
+            <li id="afdeling-toevoegen"><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
             @endif
             <li class="header">Planning</li>
-            <li><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
+            <li id="beschikbaarheid"><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
             @if (Auth::user()->rank_id == 2)
-            <li><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
+            <li id="medewerkers-inplannen"><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
             @endif
 
             <li class="header">Dag Uren</li>
-            <li><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
+            <li id="dagelijkseuren"><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
 
             <li class="header">Profiel</li>
-            <li><a href="/editprofile/{!! Auth::user()->id !!}"><span>Profiel wijzigen</span></a></li>
+            <li id="editprofile/{!! Auth::user()->id !!}"><a href="/editprofile/{!! Auth::user()->id !!}"><span>Profiel wijzigen</span></a></li>
 
             <li class="header"><a href="/auth/logout">Log uit</a></li>
         </ul><!-- /.sidebar-menu -->
         <script>
-        $("ul li a").on('click', function(e){
-           e.preventdefault();
-           $(this).closest('li').addClass('active').siblings().removeClass('active')
+        jQuery.noConflict()( function(){
+            var $ = jQuery;
+            var path = window.location.pathname;
+            $('ul.sidebar-menu li').each(function() {
+                if( path === "/" + this.id){ 
+                    $(this).addClass('active'); 
+                } else if( path === "/" ) {
+                    $('#home').addClass('active'); 
+                }
+            }); 
         });
         </script>
     </section>
