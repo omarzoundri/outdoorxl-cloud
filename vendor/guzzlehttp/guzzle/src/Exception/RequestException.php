@@ -1,54 +1,37 @@
 <?php
+
 namespace GuzzleHttp\Exception;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Message\RequestInterface;
+use GuzzleHttp\Message\ResponseInterface;
 
 /**
  * HTTP Request exception
  */
 class RequestException extends TransferException
 {
+    /** @var bool */
+    private $emittedErrorEvent = false;
+
     /** @var RequestInterface */
     private $request;
 
     /** @var ResponseInterface */
     private $response;
 
-    /** @var array */
-    private $handlerContext;
+    /** @var bool */
+    private $throwImmediately = false;
 
     public function __construct(
         $message,
         RequestInterface $request,
         ResponseInterface $response = null,
-        \Exception $previous = null,
-        array $handlerContext = []
+        \Exception $previous = null
     ) {
-        // Set the code of the exception if the response is set and not future.
-        $code = $response && !($response instanceof PromiseInterface)
-            ? $response->getStatusCode()
-            : 0;
+        $code = $response ? $response->getStatusCode() : 0;
         parent::__construct($message, $code, $previous);
         $this->request = $request;
         $this->response = $response;
-        $this->handlerContext = $handlerContext;
-    }
-
-    /**
-     * Wrap non-RequestExceptions with a RequestException
-     *
-     * @param RequestInterface $request
-     * @param \Exception       $e
-     *
-     * @return RequestException
-     */
-    public static function wrapException(RequestInterface $request, \Exception $e)
-    {
-        return $e instanceof RequestException
-            ? $e
-            : new RequestException($e->getMessage(), $request, null, $e);
     }
 
     /**
@@ -57,27 +40,19 @@ class RequestException extends TransferException
      * @param RequestInterface  $request  Request
      * @param ResponseInterface $response Response received
      * @param \Exception        $previous Previous exception
-     * @param array             $ctx      Optional handler context.
      *
      * @return self
      */
     public static function create(
         RequestInterface $request,
         ResponseInterface $response = null,
-        \Exception $previous = null,
-        array $ctx = []
+        \Exception $previous = null
     ) {
         if (!$response) {
-            return new self(
-                'Error completing request',
-                $request,
-                null,
-                $previous,
-                $ctx
-            );
+            return new self('Error completing request', $request, null, $previous);
         }
 
-        $level = floor($response->getStatusCode() / 100);
+        $level = $response->getStatusCode()[0];
         if ($level == '4') {
             $label = 'Client error response';
             $className = __NAMESPACE__ . '\\ClientException';
@@ -89,12 +64,11 @@ class RequestException extends TransferException
             $className = __CLASS__;
         }
 
-        $message = $label . ' [url] ' . $request->getUri()
-            . ' [http method] ' . $request->getMethod()
+        $message = $label . ' [url] ' . $request->getUrl()
             . ' [status code] ' . $response->getStatusCode()
             . ' [reason phrase] ' . $response->getReasonPhrase();
 
-        return new $className($message, $request, $response, $previous, $ctx);
+        return new $className($message, $request, $response, $previous);
     }
 
     /**
@@ -128,17 +102,49 @@ class RequestException extends TransferException
     }
 
     /**
-     * Get contextual information about the error from the underlying handler.
+     * Check or set if the exception was emitted in an error event.
      *
-     * The contents of this array will vary depending on which handler you are
-     * using. It may also be just an empty array. Relying on this data will
-     * couple you to a specific handler, but can give more debug information
-     * when needed.
+     * This value is used in the RequestEvents::emitBefore() method to check
+     * to see if an exception has already been emitted in an error event.
      *
-     * @return array
+     * @param bool|null Set to true to set the exception as having emitted an
+     *     error. Leave null to retrieve the current setting.
+     *
+     * @return null|bool
+     * @throws \InvalidArgumentException if you attempt to set the value to false
      */
-    public function getHandlerContext()
+    public function emittedError($value = null)
     {
-        return $this->handlerContext;
+        if ($value === null) {
+            return $this->emittedErrorEvent;
+        } elseif ($value === true) {
+            $this->emittedErrorEvent = true;
+        } else {
+            throw new \InvalidArgumentException('You cannot set the emitted '
+                . 'error value to false.');
+        }
+    }
+
+    /**
+     * Sets whether or not parallel adapters SHOULD throw the exception
+     * immediately rather than handling errors through asynchronous error
+     * handling.
+     *
+     * @param bool $throwImmediately
+     *
+     */
+    public function setThrowImmediately($throwImmediately)
+    {
+        $this->throwImmediately = $throwImmediately;
+    }
+
+    /**
+     * Gets the setting specified by setThrowImmediately().
+     *
+     * @return bool
+     */
+    public function getThrowImmediately()
+    {
+        return $this->throwImmediately;
     }
 }

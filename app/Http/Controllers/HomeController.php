@@ -104,6 +104,14 @@ class HomeController extends Controller
 		$password = str_random(8);
 		$input['password'] = bcrypt($password);
 		User::create($input);
+		$division = Division::where('division_id', '=', $request->division_id)
+							->get();
+							
+		Mail::send('emails.created', ['request' => $request, 'password' => $password, 'division' => $division], function ($m) use ($request, $password, $division) {
+            $m->from('info@outdoorxl.nl', 'OutdoorXL');
+
+            $m->to($request->email, $request->name)->subject('Welkom, beste medewerker van OutdoorXL!');
+        });
 
 		return redirect('medewerkers');
 	}

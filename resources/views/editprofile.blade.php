@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Nieuws Wijzigen')
+@section('title', 'Profiel Wijzigen')
 
 @section('breadcrumb')
     <ol class="breadcrumb">
