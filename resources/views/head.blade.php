@@ -24,7 +24,12 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 
 
+<!-- REQUIRED JS SCRIPTS -->
 
+<!-- jQuery 2.1.3 -->
+<script src="{{ asset ("/docs/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
+<!-- Bootstrap 3.3.2 JS -->
+<script src="{{ asset ("/docs/bootstrap/js/bootstrap.min.js") }}" type="text/javascript"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
