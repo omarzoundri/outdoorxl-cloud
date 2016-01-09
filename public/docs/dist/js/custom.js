@@ -1,5 +1,4 @@
-    
-//Als de pagina geladen is
+Als de pagina geladen is
 $(document).ready(function(){
     //Voor elke button met de class planningid
     $("button.planningid").each(function() {
@@ -30,4 +29,3 @@ function postScheduleEmployee(obj, planningid){
         }
     });
 }
-

@@ -19,39 +19,25 @@ class HomeController extends Controller
 		$this->middleware('auth');
 		Date::setLocale('nl');
 	}
-	public function getEditProfile($id){
-		$users = User::findOrFail($id);
-		return view('editprofile', compact('users'));
+	public function getEditProfile(){
+		$user = Auth::user();
+		return view('editprofile', compact('user'));
 	}
-	public function postEditProfile($id, EditProfile $request){
+	public function postEditProfile(EditProfile $request){
 
-		$users = User::findOrFail($id);
-		$users->update($request->all());
-
-		
-		// 	DB::table('users')
-		// 					->where('email', 'Auth::user()->email')
-		// 					->value('email')
-		// 					->update([
-		// 						'email' => $request->email
-		// 					]);
-
-		/*
-			if(bcrypt(Auth::user()->password) != $users->password){
-				return "nope";
-			} else {
-					$users->update($request->password());
+		$user = Auth::user();
+		if ($request->email != null){
+			$user->email = $request->email;
+			$user->save();
+		}
+		if (Hash::check($request->oldpassword, $user->password)) {
+			if($request->confirmpassword == $request->newpassword && $request->newpassword != null){
+				$user->password = $request->newpassword;
+				$user->save();
 			}
-			$input = $request->all();
-			$password = bcrypt($request->oldpassword);
-			if ($password == Auth::user()->password) {
+		}
 
-				$input['password'] = Hash::make($input['password']);
-				$users = User::find($id);
-				$users->update($input);
-				return redirect('dashboard');
-			}*/
-		return view('editprofile', compact('users', 'email'));
+		return view('editprofile', compact('user', 'email'));
 	}
 	public function dashboard()
 	{
@@ -61,39 +47,39 @@ class HomeController extends Controller
     	return view('dashboard', ['news' => $news]);
 	}
 
-	public function viewRooster()
+	public function viewRoster()
 	{
 		$users = User::where('id', '=', Auth::user()->id)->get();
 		$planning = Planning::all();
 		$monday = Carbon::now()->startofweek();
-	
+
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
 	}
-	public function getAddNieuws()
+	public function getAddNews()
 	{
 		return view('addnieuws');
 	}
 
- 	public function postAddNieuws(AddNieuws $request)
+ 	public function postAddNews(AddNieuws $request)
  	{
  		$input = $request->all();
 		News::create($input);
 		return redirect('nieuws');
  	}
-	public function getEditNieuws($id){
+	public function getEditNews($id){
 		$news = News::findOrFail($id);
 		return view('editnieuws', compact('news'));
 	}
-	public function postEditNieuws($id, EditNieuws $request){
+	public function postEditNews($id, EditNieuws $request){
 		$news = News::findOrFail($id);
 		$news->update($request->all());
 		return redirect('nieuws');
 	}
-	public function getDeleteNieuws($id){
+	public function getDeleteNews($id){
 		$news = News::findOrFail($id);
 		return view('deletenieuws', compact('news'));
 	}
-	public function postDeleteNieuws($id){
+	public function postDeleteNews($id){
 		$news = News::findOrFail($id);
 		$news->delete(News::all());
 		return redirect('nieuws');
@@ -107,7 +93,9 @@ class HomeController extends Controller
 
 	public function getAddEmployee()
 	{
-    	return view('add');
+		$divisions = Division::all();
+
+    	return view('addemployee', ['divisions' => $divisions]);
 	}
 
 	public function postAddEmployee(AddEmployee $request)
@@ -116,6 +104,14 @@ class HomeController extends Controller
 		$password = str_random(8);
 		$input['password'] = bcrypt($password);
 		User::create($input);
+		$division = Division::where('division_id', '=', $request->division_id)
+							->get();
+							
+		Mail::send('emails.created', ['request' => $request, 'password' => $password, 'division' => $division], function ($m) use ($request, $password, $division) {
+            $m->from('info@outdoorxl.nl', 'OutdoorXL');
+
+            $m->to($request->email, $request->name)->subject('Welkom, beste medewerker van OutdoorXL!');
+        });
 
 		return redirect('medewerkers');
 	}
@@ -123,8 +119,11 @@ class HomeController extends Controller
 	public function getEditEmployee($id)
 	{
 		$user = User::findOrFail($id);
+		$currentdivision = Division::where('division_id', '=', $user->division_id)
+							->get();
+		$divisions = Division::all();
 
-		return view('editemployee', ['user' => $user]);
+		return view('editemployee', ['user' => $user, 'divisions' => $divisions, 'currentdivision' => $currentdivision]);
 	}
 
 	public function postEditEmployee($id, EditEmployee $request)
@@ -195,7 +194,7 @@ class HomeController extends Controller
 
 		return redirect('afdelingen');
  	}
- 	
+
  	public function getAvailability()
  	{
 
@@ -216,6 +215,11 @@ class HomeController extends Controller
 		$planning->from = $request->start;
 		$planning->untill = $request->end;
 
+<<<<<<< .merge_file_LqeSWc
+=======
+
+
+>>>>>>> .merge_file_kVCiWV
 		if ($request->status == 1) {
 			if ($request->datename === "Maandag" || $request->datename === "Dinsdag" || $request->datename === "Woensdag" || $request->datename === "Donderdag" || $request->datename === "Zaterdag") {
 				$request->start = 10;
@@ -266,7 +270,7 @@ class HomeController extends Controller
 			}
 			$planning->save();
 		}
- 		
+
  		return response()->json(['status' => 1]);
  	}
 
@@ -299,22 +303,26 @@ class HomeController extends Controller
  		return '{"result":"'.$status.'"}';
  	}
 
- 	public function getAddUrenMedewerker()
+ 	public function getAddHoursEmployee()
  	{
  		return view('dailyhours');
  	}
 
- 	public function postAddUrenMedewerker()
+ 	public function postAddHoursEmployee()
  	{
+
+ 	}
+ 	public function getDailyRoster(){
+
+ 		$users = User::all();
+ 		$divisions = Division::all();
+ 		$monday = Carbon::now()->startofweek();
+ 		$planning = Planning::where('date', '=', Carbon::today())
+ 						->get();
+
+
+		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+
  		
  	}
 }
-
-
-
-
-
-
-
-
-

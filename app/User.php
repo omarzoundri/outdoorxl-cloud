@@ -36,7 +36,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['remember_token'];
 
     public function isAnAdmin()
     {
@@ -47,5 +47,9 @@ class User extends Model implements AuthenticatableContract,
 
     return false;
         
+    }
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = \Hash::make($password);
     }
 }

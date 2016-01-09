@@ -15,19 +15,19 @@ Route::get('/', 'Auth\AuthController@getLogin');
 Route::post('/', 'Auth\AuthController@postLogin');
 
 //edit profile
-Route::get('editprofile/{id}', 'HomeController@getEditProfile');
-Route::post('editprofile/{id}', 'HomeController@postEditProfile');
+Route::get('editprofile', 'HomeController@getEditProfile');
+Route::post('editprofile', 'HomeController@postEditProfile');
 
 //dashboard
 Route::get('nieuws', 'HomeController@dashboard' );
-Route::post('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@postAddNieuws']);
-Route::get('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddNieuws']);
+Route::post('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@postAddNews']);
+Route::get('nieuws-toevoegen', ['middleware' => 'admin', 'uses' => 'HomeController@getAddNews']);
 Route::get('nieuws/{id}', 'HomeController@getNieuws');
-Route::get('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@getEditNieuws']);
-Route::post('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@postEditNieuws']);
-Route::get('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteNieuws']);
-Route::post('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteNieuws']);
-Route::get('myschedule', 'HomeController@viewRooster' );
+Route::get('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@getEditNews']);
+Route::post('nieuws/{id}/edit', ['middleware' => 'admin', 'uses' => 'HomeController@postEditNews']);
+Route::get('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@getDeleteNews']);
+Route::post('nieuws/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeController@postDeleteNews']);
+Route::get('myschedule', 'HomeController@viewRoster' );
 
 //employee
 Route::get('medewerker-toevoegen',['middleware' => 'admin', 'uses' => 'HomeController@getAddEmployee']);
@@ -51,14 +51,16 @@ Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeCon
 Route::get('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@getScheduleEmployee']);
 Route::post('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@postScheduleEmployee']);
 
+//daily roster for admin
+Route::get('dagelijkse-rooster', 'HomeController@getDailyRoster');
 
 //availability
 Route::get('beschikbaarheid', 'HomeController@getAvailability');
 Route::post('beschikbaarheid', 'HomeController@postAvailability');
 
 //daily hours
-Route::get('dagelijkseuren', 'HomeController@getAddUrenMedewerker');
-Route::post('dagelijkseuren', 'HomeController@postAddUrenMedewerker');
+Route::get('dagelijkseuren', 'HomeController@getAddHoursEmployee');
+Route::post('dagelijkseuren', 'HomeController@postAddHoursEmployee');
 
 //test environment
 Route::get('planning', 'EventController@calendar');

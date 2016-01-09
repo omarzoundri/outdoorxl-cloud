@@ -11,12 +11,17 @@
 
 @section('content')
 <div id="calendar">
-	<form method="post">
+    @if(Input::get('month') !== null && Input::get('month') > 0) <a @if(Input::get('month') !== null) {{--*/ $prevMonth = Input::get('month') - 1 /*--}}@endif href="?month={{$prevMonth}}">Vorige maand</a> - @endif
+	<a @if(Input::get('month') !== null) {{--*/ $nextMonth = Input::get('month') + 1 /*--}} href="?month={{$nextMonth}}" @else href="?month=1" @endif>Volgende maand</a>
+    <form method="post">
 	<table class="responstable">
-    	@for($x=0; $x <= 3; $x++)
+        {{--*/ $month = Input::get('month') * 4/*--}} <!-- Hier word bepaald met welk maand er geloopt word en hoeveel weken er in een maand worden opgehaald. Huidige is 0. Volgende maand 1. etc -->
+        {{--*/ $endmonth = 3 + $month /*--}} <!-- Hier bepaal je wanneer het eind van de maand is in weken. -->
+        {{--*/ $startmonth = 0 + $month /*--}} <!-- Hier bepaal je vanaf welke week de kalender moet beginnen. -->
+    	@for($x=$startmonth; $x <= $endmonth; $x++)
     	<tr>
-    	{{--*/ $w = 7 * $x /*--}}
-    	{{--*/ $k = $w + 7 /*--}}
+    	{{--*/ $w = 7 * $x /*--}} <!-- $w is wanneer het begin in dagen is 7 * (aantal weken) = aantal dagen. -->
+    	{{--*/ $k = $w + 7 /*--}} <!-- $k laat zien hoeveel dagen er in een week zitten en ervoor zorgt dat de loop per row 7 dagen ophaald.-->
     	   @for($s=$w; $s < $k; $s++)
     	   <th>{{Date::parse()->addDay($s)->format('l d F')}}</th>
     	   @endfor
@@ -46,11 +51,11 @@
                     <input type="text" class="planningid" id="planningid" name="planningid" value="@if($status == 1){{$plan->planning_id}}@endif">
                     <label for="day">Hele dag:</label>
                     <div class="time">
-                        <input class="day" id="day" type="checkbox" @if(isset($day) && $day == 1) checked="checked"@endif name="day[]" value="1"><br>
+                        <input class="day" id="day" type="checkbox" @if(isset($day) && $day == 1 && $status == 1) checked="checked"@endif name="day[]" value="1"><br>
                     </div>
                     <label for="notavailable">Niet beschikbaar:</label>
                     <div class="time">
-                        <input class="unavailable" id="unavailable" type="checkbox" @if(isset($unavailable) && $unavailable == 1)checked="checked"@endif name="unavailable[]" value="1"><br>
+                        <input class="unavailable" id="unavailable" type="checkbox" @if(isset($unavailable) && $unavailable == 1 && $status == 1)checked="checked"@endif name="unavailable[]" value="1"><br>
                     </div>
                     <label for="from">Van</label>
                     <div class="time">

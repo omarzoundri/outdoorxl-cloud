@@ -1,3 +1,5 @@
+
+
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
 
@@ -27,6 +29,7 @@
         </form>
         <!-- /.search form -->
         <!-- Sidebar Menu -->
+<<<<<<< HEAD
 
         <div id="links"> 
             <ul class="sidebar-menu">
@@ -57,6 +60,49 @@
                 <li class="header"><a href="/auth/logout">Log uit</a></li>
             </ul><!-- /.sidebar-menu -->
         </div>
+=======
+        <ul class="sidebar-menu">
+            <li class="header">Dashboard</li>
+            <li id="myschedule"><a href="/myschedule">Mijn Rooster</a></li>
+            <li id="nieuws"><a href="/nieuws"><span>Nieuws</span></a></li>
+            @if (Auth::user()->rank_id == 2)
+            <li id="nieuws-toevoegen"><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
+
+            <li class="header">Beheer</li>
+            <li id="dagelijkse-rooster"><a href="/dagelijkse-rooster"><span>Rooster</span></a></li>
+            <li id="medewerkers"><a href="/medewerkers"><span>Medewerkers</span></a></li>
+            <li id="medewerker-toevoegen"><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
+            <li id="afdelingen"><a href="/afdelingen"><span>Afdelingen</span></a></li>
+            <li id="afdeling-toevoegen"><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
+            @endif
+            <li class="header">Planning</li>
+            <li id="beschikbaarheid"><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
+            @if (Auth::user()->rank_id == 2)
+            <li id="medewerkers-inplannen"><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
+            @endif
+
+            <li class="header">Dag Uren</li>
+            <li id="dagelijkseuren"><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
+
+            <li class="header">Profiel</li>
+            <li id="editprofile"><a href="/editprofile"><span>Profiel wijzigen</span></a></li>
+
+            <li class="header"><a href="/auth/logout">Log uit</a></li>
+        </ul><!-- /.sidebar-menu -->
+        <script>
+        jQuery.noConflict()( function(){
+            var $ = jQuery;
+            var path = window.location.pathname;
+            $('ul.sidebar-menu li').each(function() {
+                if( path === "/" + this.id){ 
+                    $(this).addClass('active'); 
+                } else if( path === "/" ) {
+                    $('#home').addClass('active'); 
+                }
+            }); 
+        });
+        </script>
+>>>>>>> 0bbc98c82a0879acf3c1c9ea89285f9f1b62f8af
     </section>
     <!-- /.sidebar -->
 </aside>
