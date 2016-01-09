@@ -155,6 +155,7 @@ tr:nth-child(odd) td { background: #FEFEFE; }
 .inplannenuren{
   height: 50px;
   padding-top: 10px;
+  width: 100%;
 }
 
 .inplannenuren input{
@@ -163,6 +164,7 @@ tr:nth-child(odd) td { background: #FEFEFE; }
 
 .kleur1{
     margin-top: 50px;
+    margin-right: 25px;
     width: 250px;
     height: 40px;
     background-color: #00B16A;
@@ -170,6 +172,32 @@ tr:nth-child(odd) td { background: #FEFEFE; }
     border-radius: 5px;
     text-align: center;
     line-height: 35px;
+    display: inline-block;
+}
+
+.kleur2{
+    margin-top: 50px;
+    margin-right: 25px;
+    width: 300px;
+    height: 40px;
+    background-color: #3498DB;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 35px;
+    display: inline-block;
+}
+
+.kleur3{
+    margin-top: 50px;
+    width: 350px;
+    height: 40px;
+    background-color: #F2784B;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 35px;
+    display: inline-block;
 }
 
 .planningid{
@@ -184,12 +212,26 @@ tr:nth-child(odd) td { background: #FEFEFE; }
 }
 
 .mijnrooster{
-  font-size: 20pt;
+  font-size: 15pt;
 }
 
-.mijnroostertabel{
 
+.bevestigknop{
+  height: 20px;
+  width: 50px;
+  background-color: #3498DB;
 }
+
+.bevestig{
+  margin-left: -20px;
+  display: none;
+}
+
+
+
+
+
+
 
 
 

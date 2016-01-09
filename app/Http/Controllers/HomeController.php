@@ -216,8 +216,6 @@ class HomeController extends Controller
 		$planning->from = $request->start;
 		$planning->untill = $request->end;
 
-
-		
 		if ($request->status == 1) {
 			if ($request->datename === "Maandag" || $request->datename === "Dinsdag" || $request->datename === "Woensdag" || $request->datename === "Donderdag" || $request->datename === "Zaterdag") {
 				$request->start = 10;
