@@ -29,7 +29,7 @@
         </form>
         <!-- /.search form -->
         <!-- Sidebar Menu -->
-<<<<<<< HEAD
+
 
         <div id="links"> 
             <ul class="sidebar-menu">
@@ -60,7 +60,7 @@
                 <li class="header"><a href="/auth/logout">Log uit</a></li>
             </ul><!-- /.sidebar-menu -->
         </div>
-=======
+
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
             <li id="myschedule"><a href="/myschedule">Mijn Rooster</a></li>
@@ -102,7 +102,7 @@
             }); 
         });
         </script>
->>>>>>> 0bbc98c82a0879acf3c1c9ea89285f9f1b62f8af
+
     </section>
     <!-- /.sidebar -->
 </aside>
