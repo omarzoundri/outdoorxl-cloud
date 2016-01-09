@@ -29,38 +29,6 @@
         </form>
         <!-- /.search form -->
         <!-- Sidebar Menu -->
-
-
-        <div id="links"> 
-            <ul class="sidebar-menu">
-                <li class="header">Dashboard</li>
-                <li><a href="/myschedule"><span>Mijn Rooster</span></a></li>
-                <li><a href="/nieuws"><span>Nieuws</span></a></li>
-                @if (Auth::user()->rank_id == 2)
-                <li><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
-
-                <li class="header">Beheer</li>
-                <li><a href="/medewerkers"><span>Medewerkers</span></a></li>
-                <li><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
-                <li><a href="/afdelingen"><span>Afdelingen</span></a></li>
-                <li><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
-                @endif
-                <li class="header">Planning</li>
-                <li><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
-                @if (Auth::user()->rank_id == 2)
-                <li><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
-                @endif
-
-                <li class="header">Dag Uren</li>
-                <li><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
-
-                <li class="header">Profiel</li>
-                <li><a href="/editprofile/{!! Auth::user()->id !!}"><span>Profiel wijzigen</span></a></li>
-
-                <li class="header"><a href="/auth/logout">Log uit</a></li>
-            </ul><!-- /.sidebar-menu -->
-        </div>
-
         <ul class="sidebar-menu">
             <li class="header">Dashboard</li>
             <li id="myschedule"><a href="/myschedule">Mijn Rooster</a></li>
