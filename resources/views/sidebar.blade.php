@@ -15,6 +15,7 @@
                 <p class="authname">{!! Auth::user()->name !!}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a href="/auth/logout">Log uit</a>
             </div>
         </div>
 
@@ -55,7 +56,8 @@
             <li class="header">Profiel</li>
             <li id="editprofile"><a href="/editprofile"><span>Profiel wijzigen</span></a></li>
 
-            <li class="header"><a href="/auth/logout">Log uit</a></li>
+            <li class="header">Mail</li>
+            <li id="dagelijkse-uren-reminder"><a href="/dagelijkse-uren-reminder"><span>Dagelijkse uren Reminder</span></a></li>
         </ul><!-- /.sidebar-menu -->
         <script>
         jQuery.noConflict()( function(){
