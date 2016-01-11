@@ -74,7 +74,7 @@
                             </div>
                         </td>
                         <td>
-                            <a href="/{{$plan->planning_id}}/edit">Wijzig</a>
+                            <a href="/dagelijkseuren-bevestigen/{{$plan->planning_id}}/edit">Wijzig</a>
                         </td>
                         <td>
                             <div class="inplannenuren">
