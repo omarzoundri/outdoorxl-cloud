@@ -69,6 +69,8 @@ Route::get('planning', 'EventController@calendar');
 Route::get('test', 'TestController@test');
 Route::get('charts', 'TestController@charts');
 
+//mail
+Route::get('dagelijkse-uren-reminder', 'HomeController@getDailyReminder');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

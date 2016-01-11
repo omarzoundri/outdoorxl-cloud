@@ -366,7 +366,15 @@ class HomeController extends Controller
        		->get();
 
 
+
   return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]); 
+
+		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);	
+ 	}
+ 	public function getDailyReminder(){
+
+ 		return view('daily-reminder');
+
 
  	}
 }
