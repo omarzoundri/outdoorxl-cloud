@@ -47,15 +47,15 @@
     @foreach ($users as $user)
         <!-- Controleert of deze medewerker bij deze afdeling hoort -->
         @if($user->division_id == $division->division_id)
-            <tr>
-                <td>
-                    {{ $division->division}}
-                </td>
-                <td>{{ $user->name}}</td>   
+            <tr>  
             <!-- Voor elke dag de planning ophalen van de medewerker -->
                 @foreach($planning as $plan)
                     @if(($user->id == $plan->user_id) && (Date::parse()->format('Y-m-d') ==  $plan->date))
                         {{--*/ $planningfound = true /*--}}
+                        <td>
+                            {{ $division->division}}
+                        </td>
+                        <td>{{ $user->name}}</td> 
                         <td>
                             <div class="inplannenuren">
                                     {{$plan->from}}
@@ -81,16 +81,6 @@
                         </td>
                     @endif
                 @endforeach
-
-                @if($planningfound == false)
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td></td>
-                @else
-                    {{--*/ $planningfound = false /*--}}
-                @endif
-
             </tr>
 
         @endif

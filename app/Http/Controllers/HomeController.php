@@ -50,7 +50,8 @@ class HomeController extends Controller
 	public function viewRoster()
 	{
 		$users = User::where('id', '=', Auth::user()->id)->get();
-		$planning = Planning::all();
+		$planning = Planning::where('status', '=', 2)
+					->get();
 		$monday = Carbon::now()->startofweek();
 
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
@@ -332,7 +333,7 @@ class HomeController extends Controller
 		return redirect('myschedule');
  	}
 
- 	public function getDailyhours(){
+ 	public function getDailyHours(){
 
  		$users = User::all();
  		$divisions = Division::all();
@@ -344,7 +345,7 @@ class HomeController extends Controller
 		return view('schedule-dailyhours', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
  	}
 
- 	public function postDailyhours(Request $request){
+ 	public function postDailyHours(Request $request){
 
  		$planning_id = $request->_planningid;
  		$status = 4;
@@ -367,14 +368,31 @@ class HomeController extends Controller
 
 
 
-  return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]); 
+  		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]); 
+ 	}
+ 	public function getEditDailyHours($planningid){
 
-		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);	
+ 		$planning = Planning::where('planning_id', '=', $planningid)
+				->get();
+
+		return view('edit-daily-hours', ['planning' => $planning]);
+
+ 	}
+ 	public function postEditDailyHours(Request $request ,$planningid){
+
+ 		DB::table('planning')
+	            ->where('planning_id', $planningid)
+	            ->update([
+	            	'from' => $request->start,
+	             	'untill' => $request->end,
+	             	'break' => $request->break,
+	             ]);
+
+ 		return redirect('dagelijkseuren-bevestigen');
+ 		
  	}
  	public function getDailyReminder(){
 
  		return view('daily-reminder');
-
-
  	}
 }
