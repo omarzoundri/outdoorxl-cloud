@@ -301,27 +301,80 @@ class HomeController extends Controller
 
  	public function getAddHoursEmployee()
  	{
- 		return view('dailyhours');
+ 		$status = DB::table('planning')
+            ->where('status', 3)
+            ->get();
+        $error = false;
+
+        foreach ($status as $stat) {
+        	if ($stat->user_id == Auth::user()->id) {
+        		
+        		$error = 'Jij hebt je uren al ingevuld voor vandaag.';
+
+        	}
+        }
+ 		return view('dailyhours',['error' => $error] );
  	}
 
- 	public function postAddHoursEmployee()
+ 	public function postAddHoursEmployee(Request $request)
  	{
+ 		$planning = new Planning;
+		$planning->user_id = Auth::user()->id;
+		$planning->date = Carbon::today()->format('Y-m-d');
 
+		$planning->from = $request->start;
+		$planning->break = $request->pauze;
+		$planning->untill = $request->end;	
+		$planning->status = 3;
+
+		$planning->save();
+
+		return redirect('myschedule');
  	}
- 	public function getDailyRoster(){
+
+ 	public function getDailyhours(){
 
  		$users = User::all();
  		$divisions = Division::all();
  		$monday = Carbon::now()->startofweek();
  		$planning = Planning::where('date', '=', Carbon::today())
- 						->get();
+ 			->where('status', '=', 3)
+ 			->get();
 
+		return view('schedule-dailyhours', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+ 	}
+
+ 	public function postDailyhours(Request $request){
+
+ 		$planning_id = $request->_planningid;
+ 		$status = 4;
+
+ 		DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->update(['status' => $status]);
+
+
+ 		return '{"result":"'.$status.'"}';
+ 	}
+
+ 	public function getDailyRoster(){
+		$users = User::all();
+ 		$divisions = Division::all();
+   		$monday = Carbon::now()->startofweek();
+   		$planning = Planning::where('date', '=', Carbon::today())
+       		->where('status', '=', 2)
+       		->get();
+
+
+
+  return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]); 
 
 		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);	
  	}
  	public function getDailyReminder(){
 
  		return view('daily-reminder');
+
 
  	}
 }
