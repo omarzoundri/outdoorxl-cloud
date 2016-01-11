@@ -51,6 +51,9 @@ Route::post('afdeling/{id}/delete', ['middleware' => 'admin', 'uses' => 'HomeCon
 Route::get('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@getScheduleEmployee']);
 Route::post('medewerkers-inplannen', ['middleware' => 'admin', 'uses' => 'HomeController@postScheduleEmployee']);
 
+//dayoff
+Route::get('verlof-aanvragen', 'HomeController@getDayOff');
+
 //daily roster for admin
 Route::get('dagelijkse-rooster', 'HomeController@getDailyRoster');
 

@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->integer('rank_id');
             $table->integer('division_id');
             $table->integer('experience_id');
+            $table->double('salary', 4, 2);
             $table->rememberToken();
             $table->timestamps();
         });

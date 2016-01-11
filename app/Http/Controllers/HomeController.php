@@ -314,6 +314,7 @@ class HomeController extends Controller
  		$divisions = Division::all();
  		$monday = Carbon::now()->startofweek();
  		$planning = Planning::where('date', '=', Carbon::today())
+ 						->where('status', '=', 2)
  						->get();
 
 
@@ -323,5 +324,8 @@ class HomeController extends Controller
 
  		return view('daily-reminder');
 
+ 	}
+ 	public function getDayOff(){
+ 		return view('dayoff');
  	}
 }
