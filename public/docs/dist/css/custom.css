@@ -222,8 +222,16 @@ tr:nth-child(odd) td { background: #FEFEFE; }
   background-color: #3498DB;
 }
 
+.bevestigknopuren{
+  height: 20px;
+  width: 50px;
+  background-color: #a3c338;
+}
+
 .bevestig{
   margin-left: -20px;
   display: none;
 }
-
+th{
+  text-align: center;
+}

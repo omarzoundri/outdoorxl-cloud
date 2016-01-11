@@ -51,6 +51,10 @@
 
             <li class="header">Dag Uren</li>
             <li id="dagelijkseuren"><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
+        
+            @if (Auth::user()->rank_id == 2)
+            <li id="dagelijkseuren-bevestigen"><a href="/dagelijkseuren-bevestigen"><span>Dag Uren Bevestigen</span></a></li>
+            @endif
 
             <li class="header">Profiel</li>
             <li id="editprofile"><a href="/editprofile"><span>Profiel wijzigen</span></a></li>

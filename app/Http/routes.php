@@ -61,6 +61,8 @@ Route::post('beschikbaarheid', 'HomeController@postAvailability');
 //daily hours
 Route::get('dagelijkseuren', 'HomeController@getAddHoursEmployee');
 Route::post('dagelijkseuren', 'HomeController@postAddHoursEmployee');
+Route::get('dagelijkseuren-bevestigen', ['middleware' => 'admin', 'uses' =>  'HomeController@getDailyhours']);
+Route::post('dagelijkseuren-bevestigen', ['middleware' => 'admin', 'uses' => 'HomeController@postDailyhours']);
 
 //test environment
 Route::get('planning', 'EventController@calendar');
