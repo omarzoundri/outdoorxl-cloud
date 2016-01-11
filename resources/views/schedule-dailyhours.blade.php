@@ -29,7 +29,7 @@
             <th>Pauzes</th>
             <th>Eind</th>
 
-            <!-- <th>Wijzigen</th> -->
+            <th>Wijzigen</th>
             <th>Bevestig</th>
         </tr>
     </thead>
@@ -68,12 +68,14 @@
                             </div>
                         </td>
 
-                         <td>
+                        <td>
                             <div class="inplannenuren">
                                     {{$plan->untill}}
                             </div>
                         </td>
-
+                        <td>
+                            <a href="/{{$plan->planning_id}}/edit">Wijzig</a>
+                        </td>
                         <td>
                             <div class="inplannenuren">
                                     <button type="button" class="bevestigknopuren" id="planningid{{ $plan->planning_id }}" name="planningid" value="{{ $plan->status }}" planningid="{{ $plan->planning_id }}" onclick="postScheduleHoursConfirmed(this, {{ $plan->planning_id }})" >

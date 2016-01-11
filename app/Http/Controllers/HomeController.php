@@ -278,6 +278,7 @@ class HomeController extends Controller
  		$monday = Carbon::now()->startofweek();
  		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
  						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
+ 						->where('status', '<=', 2)
  						->get();
 
 
@@ -295,6 +296,22 @@ class HomeController extends Controller
  		DB::table('planning')
             ->where('planning_id', $planning_id)
             ->update(['status' => $status]);
+
+        /*if ($status == 2) {
+        	$planning = DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->get();
+
+            $user = DB::table('users')
+            ->where('id', $planning->id)
+            ->get();
+
+            Mail::send('emails.planned', ['user' => $user], function ($m) use ($plan) {
+	            $m->from('info@outdoorxl.nl', 'OutdoorXL');
+
+	            $m->to($request->email, $request->name)->subject('OutdoorXL- Je bent net ingepland, bekijk je rooster!');
+	        });
+        }*/
 
         //Terug geven json resultaat
  		return '{"result":"'.$status.'"}';
