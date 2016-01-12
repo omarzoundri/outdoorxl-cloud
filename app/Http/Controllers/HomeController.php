@@ -56,6 +56,11 @@ class HomeController extends Controller
 
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
 	}
+	public function getNieuws($id)
+	{
+		$news = News::findOrFail($id);
+		return view('editnieuws', compact('news'));
+	}
 	public function getAddNews()
 	{
 		return view('addnieuws');
@@ -107,7 +112,7 @@ class HomeController extends Controller
 		User::create($input);
 		$division = Division::where('division_id', '=', $request->division_id)
 							->get();
-							
+
 		Mail::send('emails.created', ['request' => $request, 'password' => $password, 'division' => $division], function ($m) use ($request, $password, $division) {
             $m->from('info@outdoorxl.nl', 'OutdoorXL');
 
@@ -326,7 +331,7 @@ class HomeController extends Controller
 
         foreach ($status as $stat) {
         	if ($stat->user_id == Auth::user()->id) {
-        		
+
         		$error = 'Jij hebt je uren al ingevuld voor vandaag.';
 
         	}
@@ -342,7 +347,7 @@ class HomeController extends Controller
 
 		$planning->from = $request->start;
 		$planning->break = $request->pauze;
-		$planning->untill = $request->end;	
+		$planning->untill = $request->end;
 		$planning->status = 3;
 
 		$planning->save();
@@ -382,10 +387,7 @@ class HomeController extends Controller
    		$planning = Planning::where('date', '=', Carbon::today())
        		->where('status', '=', 2)
        		->get();
-
-
-
-  		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]); 
+  		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
  	}
  	public function getEditDailyHours($planningid){
 
@@ -406,7 +408,7 @@ class HomeController extends Controller
 	             ]);
 
  		return redirect('dagelijkseuren-bevestigen');
- 		
+
  	}
  	public function getDailyReminder(){
 
