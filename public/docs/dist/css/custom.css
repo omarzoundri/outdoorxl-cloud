@@ -200,6 +200,18 @@ tr:nth-child(odd) td { background: #FEFEFE; }
     display: inline-block;
 }
 
+.kleur4{
+   margin-top: 50px;
+    width: 350px;
+    height: 40px;
+    background-color: #ccc;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 35px;
+    display: inline-block;
+}
+
 .planningid{
   background-color: #f4f4f4;
 }
