@@ -44,14 +44,14 @@
                         @endif
                     @endforeach
                 @endif
-                <td @if($status == 1)style="background: green; color: black"@else style="background: white"@endif>
+                <td @if($status == 1 && $unavailable !=  1)style="background: green; color: black"@elseif(isset($unavailable) && $unavailable == 1)style="background: gray"@else style="background: white"@endif>
                     <input type="text" class="date" id="date" name="date" value="{{Date::parse()->addDay($i)->format('Y-m-d')}}">
                     <input type="text" class="datename" id="datename" name="datename" value="{{Date::parse()->addDay($i)->format('l')}}">
                     <input type="text" class="status" id="status" name="status" value="{{$status}}">
                     <input type="text" class="planningid" id="planningid" name="planningid" value="@if($status == 1){{$plan->planning_id}}@endif">
                     <label for="day">Hele dag:</label>
                     <div class="time">
-                        <input class="day" id="day" type="checkbox" @if(isset($day) && $day == 1 && $status == 1) checked="checked"@endif name="day[]" value="1"><br>
+                        <input class="day" id="day" type="checkbox" @if(isset($day) && $day == 1 && $status == 1 && $unavailable !=  1) checked="checked"@endif name="day[]" value="1"><br>
                     </div>
                     <label for="notavailable">Niet beschikbaar:</label>
                     <div class="time">
@@ -69,6 +69,7 @@
                             @else
                                 @if($u == 10)
                                     <option value="{{ $start }}" selected>{{ $start }}:00</option>
+                                    <option @if(isset($unavailable) && $unavailable == 1 && $status == 1) readonly @endif value="{{ $start }}" selected>{{ $start }}:00</option>
                                 @endif
                                 @if($start != $u)
                                 <option value="{{ $u }}">{{ $u }}:00</option>
@@ -90,6 +91,7 @@
                                 @else
                                     @if($u == 10)
                                     <option value="{{ $end }}" selected>{{ $end }}:00</option>
+                                    <option @if(isset($unavailable) && $unavailable == 1 && $status == 1) readonly @endif value="{{ $end }}" selected>{{ $end }}:00</option>
                                     @endif
                                     @if($end != $u)
                                     <option value="{{ $u }}">{{ $u }}:00</option>

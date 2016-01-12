@@ -103,7 +103,7 @@ class HomeController extends Controller
 	{
 		$input = $request->all();
 		$password = str_random(8);
-		$input['password'] = bcrypt($password);
+		$input['password'] = $password;
 		User::create($input);
 		$division = Division::where('division_id', '=', $request->division_id)
 							->get();
@@ -279,6 +279,7 @@ class HomeController extends Controller
  		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
  						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
  						->where('status', '<=', 2)
+ 						->where('unavailable', '=', 0)
  						->get();
 
 
