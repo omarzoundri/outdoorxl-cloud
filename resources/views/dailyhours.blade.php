@@ -27,13 +27,14 @@
 			@endforeach
 		@endif
 		</div>
-
 		<div class="box-body">
-
+			@if($error != false)
+			<p>{{ $error }}</p>
+			@else
 			<div class="form-group">
 		      <label for="rank" class="col-sm-2 control-label">Aanvang</label>
 		      	<div class="col-sm-10">
-		          <select class="form-control" name="">	
+		          <select class="form-control" name="start">	
 
 		          	@for($u=9; $u <= 20; $u++)
 						 @if($u == 9)
@@ -44,7 +45,7 @@
 						 	@if($m == 1){{--*/ $minutes = 15; /*--}} @endif
 						 	@if($m == 2){{--*/ $minutes = 30; /*--}} @endif
 						 	@if($m == 3){{--*/ $minutes = 45; /*--}} @endif
-						 	<option value="{{ $u }}">{{ $u }}:{{ $minutes }}@if($m == 0)0 @endif</option>
+						 	<option value="{{ $u }}.{{ $minutes }}">{{ $u }}:{{ $minutes }}@if($m == 0)0 @endif</option>
 						 @endfor
 					@endfor
 
@@ -68,30 +69,32 @@
 		   	<div class="form-group">
 		      <label for="rank" class="col-sm-2 control-label">Eindtijd</label>
 		      	<div class="col-sm-10">
-		          <select class="form-control" name="">
+		          <select class="form-control" name="end">
 
 		            	@for($u=9; $u <= 21; $u++)
 						 @if($u == 9)
 						  <option disabled selected>Selecteer Eindtijd </option>
 						 @endif
-						 @for($m=0; $m < 5; $m++)
+						 @for($m=0; $m < 4; $m++)
 						 	@if($m == 0){{--*/ $minutes = 00; /*--}} @endif
 						 	@if($m == 1){{--*/ $minutes = 15; /*--}} @endif
 						 	@if($m == 2){{--*/ $minutes = 30; /*--}} @endif
 						 	@if($m == 3){{--*/ $minutes = 45; /*--}} @endif
-						 	<option value="{{ $u }}:{{ $minutes }}">{{ $u }}:{{ $minutes }}@if($m == 0)0 @endif</option>
+						 	<option value="{{ $u }}.{{ $minutes }}">{{ $u }}:{{ $minutes }}@if($m == 0)0 @endif</option>
 						 @endfor
 					@endfor
 
 		          </select>
 		      </div>
 		    </div>
-		   	
+		    <div class="box-footer">
+	    		<button type="submit" class="btn btn-info pull-left">Versturen</button>
+	  		</div>
+		   	@endif
 		</div>
 
-		<div class="box-footer">
-	    	<button type="submit" class="btn btn-info pull-left">Versturen</button>
-	  	</div><!-- /.box-footer -->
+
+<!-- /.box-footer -->
 
 	    </div>
 	

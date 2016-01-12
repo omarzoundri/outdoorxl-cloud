@@ -18,6 +18,7 @@ class SchedulePlanningTable extends Migration
             $table->integer('day')->default(0);
             $table->integer('unavailable')->default(0);
             $table->decimal('from');
+            $table->integer('break');
             $table->decimal('untill');
             $table->integer('user_id');
             $table->integer('division_id');

@@ -92,7 +92,6 @@
 </table>
     <div class="kleur1"><span>Ingeplanned (status = 1)</span></div>
     <div class="kleur2"><span>Definitief per medewerker (status = 2)</span></div>
-    <div class="kleur3"><span>Email met bevesteging van rooster (status = 3)</span></div>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
 

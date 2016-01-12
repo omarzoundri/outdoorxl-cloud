@@ -50,10 +50,16 @@ class HomeController extends Controller
 	public function viewRoster()
 	{
 		$users = User::where('id', '=', Auth::user()->id)->get();
-		$planning = Planning::all();
+		$planning = Planning::where('status', '=', 2)
+					->get();
 		$monday = Carbon::now()->startofweek();
 
         return view('myschedule', ['planning' => $planning, 'monday' => $monday, 'users' => $users]);
+	}
+	public function getNieuws($id)
+	{
+		$news = News::findOrFail($id);
+		return view('editnieuws', compact('news'));
 	}
 	public function getAddNews()
 	{
@@ -102,11 +108,11 @@ class HomeController extends Controller
 	{
 		$input = $request->all();
 		$password = str_random(8);
-		$input['password'] = bcrypt($password);
+		$input['password'] = $password;
 		User::create($input);
 		$division = Division::where('division_id', '=', $request->division_id)
 							->get();
-							
+
 		Mail::send('emails.created', ['request' => $request, 'password' => $password, 'division' => $division], function ($m) use ($request, $password, $division) {
             $m->from('info@outdoorxl.nl', 'OutdoorXL');
 
@@ -277,6 +283,8 @@ class HomeController extends Controller
  		$monday = Carbon::now()->startofweek();
  		$planning = Planning::where('date', '>=', Carbon::now()->startofweek())
  						->where('date', '<=', Carbon::now()->startofweek()->addWeek())
+ 						->where('status', '<=', 2)
+ 						->where('unavailable', '=', 0)
  						->get();
 
 
@@ -295,35 +303,116 @@ class HomeController extends Controller
             ->where('planning_id', $planning_id)
             ->update(['status' => $status]);
 
+        /*if ($status == 2) {
+        	$planning = DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->get();
+
+            $user = DB::table('users')
+            ->where('id', $planning->id)
+            ->get();
+
+            Mail::send('emails.planned', ['user' => $user], function ($m) use ($plan) {
+	            $m->from('info@outdoorxl.nl', 'OutdoorXL');
+
+	            $m->to($request->email, $request->name)->subject('OutdoorXL- Je bent net ingepland, bekijk je rooster!');
+	        });
+        }*/
+
         //Terug geven json resultaat
  		return '{"result":"'.$status.'"}';
  	}
 
  	public function getAddHoursEmployee()
  	{
- 		return view('dailyhours');
+ 		$status = DB::table('planning')
+            ->where('status', 3)
+            ->get();
+        $error = false;
+
+        foreach ($status as $stat) {
+        	if ($stat->user_id == Auth::user()->id) {
+
+        		$error = 'Jij hebt je uren al ingevuld voor vandaag.';
+
+        	}
+        }
+ 		return view('dailyhours',['error' => $error] );
  	}
 
- 	public function postAddHoursEmployee()
+ 	public function postAddHoursEmployee(Request $request)
  	{
+ 		$planning = new Planning;
+		$planning->user_id = Auth::user()->id;
+		$planning->date = Carbon::today()->format('Y-m-d');
 
+		$planning->from = $request->start;
+		$planning->break = $request->pauze;
+		$planning->untill = $request->end;
+		$planning->status = 3;
+
+		$planning->save();
+
+		return redirect('myschedule');
  	}
- 	public function getDailyRoster(){
+
+ 	public function getDailyHours(){
 
  		$users = User::all();
  		$divisions = Division::all();
  		$monday = Carbon::now()->startofweek();
  		$planning = Planning::where('date', '=', Carbon::today())
- 						->where('status', '=', 2)
- 						->get();
+		 			->where('status', '=', 2)
+		 			->get();
+
+		return view('schedule-dailyhours', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+ 	}
+
+ 	public function postDailyHours(Request $request){
+
+ 		$planning_id = $request->_planningid;
+
+ 		DB::table('planning')
+            ->where('planning_id', $planning_id)
+            ->update(['status' => 4]);
 
 
-		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);	
+ 		return '{"result":"'.$status.'"}';
+ 	}
+
+ 	public function getDailyRoster(){
+		$users = User::all();
+ 		$divisions = Division::all();
+   		$monday = Carbon::now()->startofweek();
+   		$planning = Planning::where('date', '=', Carbon::today())
+       		->where('status', '=', 2)
+       		->get();
+  		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]);
+ 	}
+ 	public function getEditDailyHours($planningid){
+
+ 		$planning = Planning::where('planning_id', '=', $planningid)
+				->get();
+
+		return view('edit-daily-hours', ['planning' => $planning]);
+
+ 	}
+ 	public function postEditDailyHours(Request $request ,$planningid){
+
+ 		DB::table('planning')
+	            ->where('planning_id', $planningid)
+	            ->update([
+	            	'from' => $request->start,
+	             	'untill' => $request->end,
+	             	'break' => $request->break,
+	             ]);
+
+ 		return redirect('dagelijkseuren-bevestigen');
+
  	}
  	public function getDailyReminder(){
 
  		return view('daily-reminder');
-
  	}
  	public function getDayOff(){
  		return view('dayoff');
