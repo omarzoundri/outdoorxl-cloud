@@ -93,8 +93,11 @@
 </tbody>
 
 </table>
+<div class="kleur4"><span>Bevestigd (status = 4)</span></div>
   </div><!-- /.box-body -->
 </div><!-- /.box -->
+
+
 
 
 <script type="text/javascript"> 

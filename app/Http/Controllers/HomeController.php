@@ -325,7 +325,7 @@ class HomeController extends Controller
         $error = false;
 
         foreach ($status as $stat) {
-        	if ($stat->user_id == Auth::user()->id) {
+        	if ($stat->user_id == Auth::user()->id){
         		
         		$error = 'Jij hebt je uren al ingevuld voor vandaag.';
 
@@ -383,10 +383,9 @@ class HomeController extends Controller
        		->where('status', '=', 2)
        		->get();
 
-
-
   		return view('dailyroster', ['users' => $users, 'divisions' => $divisions, 'planning' => $planning, 'monday' => $monday]); 
  	}
+
  	public function getEditDailyHours($planningid){
 
  		$planning = Planning::where('planning_id', '=', $planningid)
