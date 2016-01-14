@@ -1,5 +1,3 @@
-
-
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
 
@@ -31,36 +29,36 @@
         <!-- /.search form -->
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">Dashboard</li>
+            <li class="header"><strong>Dashboard</strong></li>
             <li id="myschedule"><a href="/myschedule">Mijn Rooster</a></li>
             <li id="nieuws"><a href="/nieuws"><span>Nieuws</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li id="nieuws-toevoegen"><a href="/nieuws-toevoegen"><span>Nieuws Toevoegen</span></a></li>
 
-            <li class="header">Beheer</li>
+            <li class="header"><strong>Beheer</strong></li>
             <li id="dagelijkse-rooster"><a href="/dagelijkse-rooster"><span>Rooster</span></a></li>
             <li id="medewerkers"><a href="/medewerkers"><span>Medewerkers</span></a></li>
             <li id="medewerker-toevoegen"><a href="/medewerker-toevoegen"><span>Medewerker Toevoegen</span></a></li>
             <li id="afdelingen"><a href="/afdelingen"><span>Afdelingen</span></a></li>
             <li id="afdeling-toevoegen"><a href="/afdeling-toevoegen"><span>Afdeling Toevoegen</span></a></li>
             @endif
-            <li class="header">Planning</li>
+            <li class="header"><strong>Planning</strong></li>
             <li id="beschikbaarheid"><a href="/beschikbaarheid"><span>Beschikbaarheid</span></a></li>
             @if (Auth::user()->rank_id == 2)
             <li id="medewerkers-inplannen"><a href="/medewerkers-inplannen"><span>Medewerkers inplannen</span></a></li>
             @endif
 
-            <li class="header">Dag Uren</li>
+            <li class="header"><strong>Dagelijkse Uren</strong></li>
             <li id="dagelijkseuren"><a href="/dagelijkseuren"><span>Dag Uren Invoeren</span></a></li>
-        
+
             @if (Auth::user()->rank_id == 2)
             <li id="dagelijkseuren-bevestigen"><a href="/dagelijkseuren-bevestigen"><span>Dag Uren Bevestigen</span></a></li>
             @endif
 
-            <li class="header">Profiel</li>
+            <li class="header"><strong>Profiel</strong></li>
             <li id="editprofile"><a href="/editprofile"><span>Profiel wijzigen</span></a></li>
 
-            <li class="header">Mail</li>
+            <li class="header"><strong>Mail</strong></li>
             <li id="dagelijkse-uren-reminder"><a href="/dagelijkse-uren-reminder"><span>Dagelijkse uren Reminder</span></a></li>
         </ul><!-- /.sidebar-menu -->
         <script>
@@ -68,17 +66,15 @@
             var $ = jQuery;
             var path = window.location.pathname;
             $('ul.sidebar-menu li').each(function() {
-                if( path === "/" + this.id){ 
-                    $(this).addClass('active'); 
+                if( path === "/" + this.id){
+                    $(this).addClass('active');
                 } else if( path === "/" ) {
-                    $('#home').addClass('active'); 
+                    $('#home').addClass('active');
                 }
-            }); 
+            });
         });
         </script>
 
     </section>
     <!-- /.sidebar -->
 </aside>
-
-

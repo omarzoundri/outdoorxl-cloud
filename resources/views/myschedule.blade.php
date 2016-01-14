@@ -49,11 +49,11 @@
                     @else
                         {{--*/ $planningfound = false /*--}}
                     @endif
-                @endfor 
+                @endfor
                 </tr>
             @endforeach
         @endfor
-<tbody> 
+<tbody>
 
   </div><!-- /.box-body -->
 </div><!-- /.box -->
