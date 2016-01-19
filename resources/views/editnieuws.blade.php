@@ -52,11 +52,10 @@
 
         <div class="box-footer">
           <button type="submit" class="btn btn-info pull-left">Wijzigen</button>
+  	    	<a class="btn btn-danger" href="/nieuws/{{ $news->id }}/delete">Verwijderen</a>
         </div>
 
       </form>
-
-
 @endif
 	  </div><!-- /.box-body -->
 	</form>
